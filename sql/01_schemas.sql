@@ -1,0 +1,3 @@
+-- product: name, portion, size, price, imageURL,kalories, category, tag
+-- tag: vegan, low kal,  new, none
+-- category: Salads & Bowls, Pasta & Gnocchi,   
