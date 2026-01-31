@@ -18,9 +18,13 @@ const ProductImage = (props: Props) => {
     <View>
       <Tag text={tag_text} />
       <Image
-        source={foodImages[local_image_name as keyof typeof foodImages] }
-        style={{ width: 250, height: 250 * 1.8 }}
-        resizeMode="contain"
+        source={foodImages[local_image_name as keyof typeof foodImages]}
+        style={{
+          width: 150,
+          height: 150,
+          backgroundColor: "green",
+        }}
+        resizeMode="cover"
       />
     </View>
   );
