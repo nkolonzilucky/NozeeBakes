@@ -19,6 +19,7 @@ const Tag = (props: Props) => {
         backgroundColor: "white",
         borderRadius: 20,
         textAlign: "center",
+        fontWeight: "bold",
       }}
     >
       {text}

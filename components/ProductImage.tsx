@@ -25,7 +25,7 @@ const ProductImage = (props: Props) => {
           borderRadius: 6000,
           position: "relative",
         }}
-        resizeMode="cover"
+        resizeMode="center"
       />
     </View>
   );
