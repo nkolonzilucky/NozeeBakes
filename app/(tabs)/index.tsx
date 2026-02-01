@@ -32,7 +32,6 @@ const ITEMS = [
 export default function MenuScreen() {
   return (
     <View style={styles.container}>
-      <HeaderComponent />
       {/* Categories */}
       <View style={styles.categories}>
         {CATEGORIES.map((cat) => (
