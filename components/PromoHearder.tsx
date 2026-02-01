@@ -34,7 +34,7 @@ export default PromoHearder;
 const styles = StyleSheet.create({
   card: {
     backgroundColor: "#1fc04d",
-    borderRadius: 20,
+    borderRadius: 28,
     padding: 12,
     flexDirection: "row",
     marginBottom: 16,

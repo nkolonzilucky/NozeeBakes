@@ -108,6 +108,10 @@ export default function MenuScreen() {
 
       <PromoHearder product={ITEMS[0]} />
 
+      <Text style={{ fontSize: 30, fontWeight: "bold", padding: 8 }}>
+        {selectedCategory}
+      </Text>
+
       {/* Food List */}
       {/* <FlatList
         data={ITEMS}
