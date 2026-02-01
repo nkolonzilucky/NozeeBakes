@@ -6,6 +6,7 @@ import { IconSymbol } from '@/components/ui/icon-symbol';
 import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import HeaderComponent from "@/components/HeaderComponent";
+import { TabIcon } from "@/components/TabIcon";
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -43,8 +44,8 @@ export default function TabLayout() {
         options={{
           title: "Home",
           headerTitle: () => <HeaderComponent />,
-          tabBarIcon: ({ color }) => (
-            <IconSymbol size={28} name="house.fill" color={color} />
+          tabBarIcon: ({ focused }) => (
+            <TabIcon focused={focused} tabIcon="chef_hat" />
           ),
         }}
       />
@@ -52,8 +53,8 @@ export default function TabLayout() {
         name="cart"
         options={{
           title: "Cart",
-          tabBarIcon: ({ color }) => (
-            <IconSymbol size={28} name="cart.fill" color={color} />
+          tabBarIcon: ({ focused }) => (
+            <TabIcon focused={focused} tabIcon="shopping_bag" />
           ),
         }}
       />
