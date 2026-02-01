@@ -13,7 +13,7 @@ const ProductCard = ({ product }: { product: Product }) => {
         style={{
           backgroundColor: Colors.light.tint,
           padding: 8,
-         borderRadius:38
+          borderRadius: 38,
         }}
       >
         <ProductImage
@@ -24,7 +24,7 @@ const ProductCard = ({ product }: { product: Product }) => {
         />
       </View>
       <View style={styles.info}>
-        <View style={{ flexDirection: "row", gap: 6, alignItems: "center" }}>
+        <View style={{ flexDirection: "row", gap: 4, alignItems: "center" }}>
           <Text style={styles.price}>${price.toFixed(2)}</Text>
           <Text style={styles.portion}>{portion}/ portion</Text>
         </View>
@@ -46,42 +46,24 @@ const styles = StyleSheet.create({
     padding: 12,
     marginBottom: 16,
   },
-  image: {
-    width: "100%",
-    height: 120,
-    borderRadius: 16,
-  },
-  badge: {
-    position: "absolute",
-    top: 10,
-    left: 10,
-    backgroundColor: Colors.light.accent,
-    paddingHorizontal: 10,
-    paddingVertical: 4,
-    borderRadius: 999,
-  },
-  badgeText: {
-    fontSize: 12,
-    fontWeight: "600",
-    color: Colors.light.badgeText,
-  },
   info: {
-    marginTop: 10,
+    marginTop: 2,
     gap: 4,
   },
   title: {
     fontSize: 14,
-    fontWeight: "600",
+    fontWeight: "300",
     color: Colors.light.text,
   },
   portion: {
     fontSize: 12,
     color: Colors.light.textSecondary,
+    alignSelf: "center",
   },
   price: {
-    fontSize: 16,
-    fontWeight: "700",
+    fontSize: 20,
+    fontWeight: "500",
     color: Colors.light.accent,
-    marginTop: 4,
+    alignSelf: "center",
   },
 });
