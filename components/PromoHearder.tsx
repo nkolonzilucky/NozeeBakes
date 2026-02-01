@@ -10,12 +10,16 @@ const PromoHearder = ({ product }: { product: Product }) => {
     <View style={styles.card}>
       <ProductImage local_image_name={local_image_name} tag_text={tag} />
       <View style={styles.cardContent}>
-        <Text style={styles.cardTitle}>{name}</Text>
-        <Text style={styles.meta}>
-          {size} · {kalories}
-        </Text>
+        <View style={{ gap: 4 }}>
+          <Text style={styles.metaText}>Restorian</Text>
+          <Text style={styles.cardTitle}>{name}</Text>
+          <View style={styles.meta}>
+            <Text style={styles.metaText}>{size}g</Text>
+            <Text style={styles.metaText}>{kalories}kcal</Text>
+          </View>
+        </View>
         <View style={styles.row}>
-          <Text style={styles.price}>{price}</Text>
+          <Text style={styles.price}>${price}</Text>
           <Pressable style={styles.addButton}>
             <Text style={styles.addText}>Add to cart</Text>
           </Pressable>
@@ -38,15 +42,20 @@ const styles = StyleSheet.create({
   cardContent: {
     flex: 1,
     marginLeft: 12,
+    justifyContent: "space-between",
   },
   cardTitle: {
-    fontSize: 16,
-    fontWeight: "700",
+    fontSize: 18,
+    fontWeight: "600",
   },
   meta: {
-    fontSize: 12,
-    opacity: 0.7,
+    flexDirection: "row",
+    gap: 14,
     marginVertical: 4,
+  },
+  metaText: {
+    fontSize: 16,
+    opacity: 0.7,
   },
   row: {
     flexDirection: "row",
@@ -54,8 +63,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   price: {
-    fontSize: 16,
-    fontWeight: "700",
+    fontSize: 20,
+    fontWeight: "600",
   },
   addButton: {
     backgroundColor: "#111",
@@ -65,6 +74,6 @@ const styles = StyleSheet.create({
   },
   addText: {
     color: "#fff",
-    fontWeight: "600",
+    fontWeight: "400",
   },
 });
