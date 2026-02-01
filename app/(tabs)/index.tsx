@@ -1,5 +1,6 @@
 import { foodImages } from "@/assets/images/food/localImages";
 import HeaderComponent from "@/components/HeaderComponent";
+import { useState } from "react";
 import {
   View,
   Text,
@@ -30,13 +31,34 @@ const ITEMS = [
 ];
 
 export default function MenuScreen() {
+  const [selectedCategory, setSelectedCategory] = useState("All");
   return (
     <View style={styles.container}>
       {/* Categories */}
       <View style={styles.categories}>
         {CATEGORIES.map((cat) => (
-          <Pressable key={cat} style={styles.category}>
-            <Text>{cat}</Text>
+          <Pressable
+            key={cat}
+            style={[
+              styles.category,
+              {
+                backgroundColor:
+                  selectedCategory === cat
+                    ? "black"
+                    : styles.category.backgroundColor,
+              },
+            ]}
+            onPress={() => setSelectedCategory(cat)}
+          >
+            <Text
+              style={{
+                fontSize: 18,
+                fontWeight: selectedCategory === cat ? "semibold" : "300",
+                color: selectedCategory === cat ? "white" : "black",
+              }}
+            >
+              {cat}
+            </Text>
           </Pressable>
         ))}
       </View>

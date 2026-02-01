@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import { ChefHat, ShoppingBag, User, Search, ShoppingBasket } from "lucide-react-native";
+import { ChefHat, User, Search, ShoppingBasket } from "lucide-react-native";
 import { Colors } from "@/constants/theme";
 
 
