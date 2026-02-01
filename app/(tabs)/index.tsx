@@ -1,5 +1,6 @@
 import { foodImages } from "@/assets/images/food/localImages";
-import HeaderComponent from "@/components/HeaderComponent";
+import PromoHearder from "@/components/PromoHearder";
+import { Product } from "@/types/helper.types";
 import { useState } from "react";
 import {
   View,
@@ -12,21 +13,71 @@ import {
 
 const CATEGORIES = ["All", "Salads & Bowls", "Pasta & Gnocchi"];
 
-const ITEMS = [
+const ITEMS: Product[] = [
   {
     id: "1",
-    title: "Cheezy vegetables",
-    kcal: "480 kcal",
-    weight: "350g",
-    price: "$9.49",
-    image: foodImages["grated"],
+    name: "Cheezy vegetables",
+    kalories: 480,
+    size: 350,
+    price: 9.49,
+    imageurl: "local",
     tag: "New",
+    category: "Pizzas",
+    created_at: new Date().toISOString(),
+    local_image_name: "grated",
+    portion: 1,
   },
   {
     id: "2",
-    title: "Salad with chicken",
-    price: "$10.49",
-    image: foodImages["mushrooms"],
+    name: "Mushroom Pizza",
+    kalories: 480,
+    size: 350,
+    price: 9.49,
+    imageurl: "local",
+    tag: "New",
+    category: "Pizzas",
+    created_at: new Date().toISOString(),
+    local_image_name: "grated",
+    portion: 1,
+  },
+  {
+    id: "3",
+    name: "On Wood Pizza",
+    kalories: 480,
+    size: 350,
+    price: 9.49,
+    imageurl: "local",
+    tag: "New",
+    category: "Pizzas",
+    created_at: new Date().toISOString(),
+    local_image_name: "on_wood",
+    portion: 1,
+  },
+  {
+    id: "4",
+    name: "Pressami Pizza",
+    kalories: 480,
+    size: 350,
+    price: 9.49,
+    imageurl: "local",
+    tag: "New",
+    category: "Pizzas",
+    created_at: new Date().toISOString(),
+    local_image_name: "presami",
+    portion: 1,
+  },
+  {
+    id: "5",
+    name: "Veggie Pizza",
+    kalories: 480,
+    size: 350,
+    price: 9.49,
+    imageurl: "local",
+    tag: "New",
+    category: "Pizzas",
+    created_at: new Date().toISOString(),
+    local_image_name: "veggie",
+    portion: 1,
   },
 ];
 
@@ -63,28 +114,16 @@ export default function MenuScreen() {
         ))}
       </View>
 
+      <PromoHearder product={ITEMS[0]} />
+
       {/* Food List */}
-      <FlatList
+      {/* <FlatList
         data={ITEMS}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <View style={styles.card}>
-            <Image source={item.image} style={styles.image} />
-            <View style={styles.cardContent}>
-              <Text style={styles.cardTitle}>{item.title}</Text>
-              <Text style={styles.meta}>
-                {item.weight} · {item.kcal}
-              </Text>
-              <View style={styles.row}>
-                <Text style={styles.price}>{item.price}</Text>
-                <Pressable style={styles.addButton}>
-                  <Text style={styles.addText}>Add to cart</Text>
-                </Pressable>
-              </View>
-            </View>
-          </View>
+          
         )}
-      />
+      /> */}
     </View>
   );
 }
@@ -105,49 +144,5 @@ const styles = StyleSheet.create({
     paddingHorizontal: 14,
     backgroundColor: "#7EDC91",
     borderRadius: 20,
-  },
-  card: {
-    backgroundColor: "#1fc04d",
-    borderRadius: 20,
-    padding: 12,
-    flexDirection: "row",
-    marginBottom: 16,
-  },
-  image: {
-    width: 80,
-    height: 80,
-    borderRadius: 40,
-  },
-  cardContent: {
-    flex: 1,
-    marginLeft: 12,
-  },
-  cardTitle: {
-    fontSize: 16,
-    fontWeight: "700",
-  },
-  meta: {
-    fontSize: 12,
-    opacity: 0.7,
-    marginVertical: 4,
-  },
-  row: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  price: {
-    fontSize: 16,
-    fontWeight: "700",
-  },
-  addButton: {
-    backgroundColor: "#111",
-    paddingHorizontal: 14,
-    paddingVertical: 8,
-    borderRadius: 20,
-  },
-  addText: {
-    color: "#fff",
-    fontWeight: "600",
   },
 });

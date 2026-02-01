@@ -21,6 +21,7 @@ export type Database = {
           id: string
           imageurl: string | null
           kalories: number | null
+          local_image_name: string | null
           name: string
           portion: number
           price: number
@@ -33,6 +34,7 @@ export type Database = {
           id?: string
           imageurl?: string | null
           kalories?: number | null
+          local_image_name?: string | null
           name: string
           portion: number
           price: number
@@ -45,6 +47,7 @@ export type Database = {
           id?: string
           imageurl?: string | null
           kalories?: number | null
+          local_image_name?: string | null
           name?: string
           portion?: number
           price?: number
@@ -61,7 +64,11 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      product_category: "Salads & Bowls" | "Pasta & Gnocchi" | "Other"
+      product_category:
+        | "Salads & Bowls"
+        | "Pasta & Gnocchi"
+        | "Other"
+        | "Pizzas"
       product_tag: "Vegan" | "Low kcal" | "New" | "None"
     }
     CompositeTypes: {
@@ -190,7 +197,12 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
-      product_category: ["Salads & Bowls", "Pasta & Gnocchi", "Other"],
+      product_category: [
+        "Salads & Bowls",
+        "Pasta & Gnocchi",
+        "Other",
+        "Pizzas",
+      ],
       product_tag: ["Vegan", "Low kcal", "New", "None"],
     },
   },

@@ -20,9 +20,9 @@ const ProductImage = (props: Props) => {
       <Image
         source={foodImages[local_image_name as keyof typeof foodImages]}
         style={{
-          width: 150,
-          height: 150,
-          backgroundColor: "green",
+          width: 80,
+          height: 80,
+          borderRadius: 40,
         }}
         resizeMode="cover"
       />
