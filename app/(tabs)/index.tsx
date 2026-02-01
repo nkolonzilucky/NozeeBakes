@@ -1,15 +1,7 @@
-import { foodImages } from "@/assets/images/food/localImages";
 import PromoHearder from "@/components/PromoHearder";
 import { Product } from "@/types/helper.types";
 import { useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  FlatList,
-  Image,
-  Pressable,
-} from "react-native";
+import { View, Text, StyleSheet, Pressable } from "react-native";
 
 const CATEGORIES = ["All", "Salads & Bowls", "Pasta & Gnocchi"];
 

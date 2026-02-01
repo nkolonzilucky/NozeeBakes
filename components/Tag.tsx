@@ -8,10 +8,22 @@ type Props = {
 const Tag = (props: Props) => {
     const { text } = props;
   return (
-    <View style={{backgroundColor: 'white', borderRadius: 16, paddingHorizontal:10, paddingVertical:5}}>
-          <Text style={{color: 'black', textAlign:'center', }}>{text}</Text>
-    </View>
-  )
+    <Text
+      style={{
+        position: "absolute",
+        top: 1,
+        left: 2,
+        zIndex: 1000,
+        paddingVertical: 8,
+        paddingHorizontal: 14,
+        backgroundColor: "white",
+        borderRadius: 20,
+        textAlign: "center",
+      }}
+    >
+      {text}
+    </Text>
+  );
 }
 
 export default Tag
