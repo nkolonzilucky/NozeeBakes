@@ -19,22 +19,21 @@ const HeaderComponent = () => {
 export default HeaderComponent
 
 const styles = StyleSheet.create({
-    header: {
-        gap: 2,
-        backgroundColor: "yellow",
-        alignItems: "center",
-        marginBottom: 16,
-    },
-    title: {
-        fontSize: 18,
-        fontWeight: "600",
-    },
-    subtitle1: {
-        fontWeight: "400",
-        fontSize: 18,
-        color: "black",
-    },
-    subtitle2: {
-        color: "#2F6F3E",
-    },
-})
+  header: {
+    gap: 2,
+    alignItems: "center",
+    marginBottom: 16,
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: "600",
+  },
+  subtitle1: {
+    fontWeight: "400",
+    fontSize: 18,
+    color: "black",
+  },
+  subtitle2: {
+    color: "#2F6F3E",
+  },
+});

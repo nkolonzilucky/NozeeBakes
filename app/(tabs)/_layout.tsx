@@ -14,7 +14,24 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
+        tabBarStyle: {
+          flex: 1,
+          position: "absolute",
+          borderRadius: 40,
+          backgroundColor: "#7EDC91",
+          height: "auto",
+          alignItems: "center",
+          justifyContent: "flex-end",
+          paddingTop: 18,
+          // paddingBottom: 0,
+        },
         headerShown: true,
+        headerShadowVisible: false,
+        headerStyle: {
+          height: 110,
+          borderRadius: 40,
+          backgroundColor: "#7EDC91",
+        },
         sceneStyle: {
           backgroundColor: "#9BE7AE",
         },
@@ -26,10 +43,6 @@ export default function TabLayout() {
         options={{
           title: "Home",
           headerTitle: () => <HeaderComponent />,
-          headerTitleAlign: "center",
-          headerShadowVisible: true,
-          headerStyle: { height: 110, borderRadius: 40 },
-
           tabBarIcon: ({ color }) => (
             <IconSymbol size={28} name="house.fill" color={color} />
           ),
