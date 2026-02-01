@@ -8,7 +8,12 @@ const PromoHearder = ({ product }: { product: Product }) => {
   if (!local_image_name) return;
   return (
     <View style={styles.card}>
-      <ProductImage local_image_name={local_image_name} tag_text={tag} />
+      <ProductImage
+        local_image_name={local_image_name}
+        tag_text={tag}
+        width={150}
+        height={150}
+      />
       <View style={styles.cardContent}>
         <View style={{ gap: 4 }}>
           <Text style={styles.metaText}>Restorian</Text>

@@ -1,7 +1,8 @@
+import ProductCard from "@/components/ProductCard";
 import PromoHearder from "@/components/PromoHearder";
 import { Product } from "@/types/helper.types";
 import { useState } from "react";
-import { View, Text, StyleSheet, Pressable } from "react-native";
+import { View, Text, StyleSheet, Pressable, FlatList } from "react-native";
 
 const CATEGORIES = ["All", "Salads & Bowls", "Pasta & Gnocchi"];
 
@@ -113,13 +114,20 @@ export default function MenuScreen() {
       </Text>
 
       {/* Food List */}
-      {/* <FlatList
+      <FlatList
         data={ITEMS}
+        numColumns={2}
+        columnWrapperStyle={{
+          gap: 16,
+          padding: 10,
+          justifyContent: "center",
+        }}
+        contentContainerStyle={{
+          padding: 16,
+        }}
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          
-        )}
-      /> */}
+        renderItem={({ item }) => <ProductCard product={item} />}
+      />
     </View>
   );
 }

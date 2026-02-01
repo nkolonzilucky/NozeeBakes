@@ -5,13 +5,14 @@ import { foodImages } from "@/assets/images/food/localImages";
 
 
 type Props = {
-    tag_text: string;
-    local_image_name: string;
-    
-}
+  tag_text: string;
+  local_image_name: string;
+  width: number;
+  height: number;
+};
 
 const ProductImage = (props: Props) => {
-  const { tag_text, local_image_name } = props;
+  const { tag_text, local_image_name, width, height } = props;
 
   
   return (
@@ -20,8 +21,8 @@ const ProductImage = (props: Props) => {
       <Image
         source={foodImages[local_image_name as keyof typeof foodImages]}
         style={{
-          width: 150,
-          height: 150,
+          width: width,
+          height: height,
           borderRadius: 6000,
           position: "relative",
         }}

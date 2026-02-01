@@ -5,7 +5,7 @@
 
 import { Platform } from 'react-native';
 
-const tintColorLight = '#4CD964'; // Primary brand green
+const tintColorLight = "#1fc04d"; // Primary brand green
 const tintColorDark = '#6FE08D';  // Softer green for dark mode
 
 
