@@ -1,0 +1,39 @@
+import { supabase } from "@/supabase";
+import { router } from "expo-router";
+
+
+export async function signUp(email: string, password: string) {
+  const { error } = await supabase.auth.signUp({ email, password });
+  if (error) {
+    throw error;
+  } else {
+    alert(
+      "Account created successfully. Supabase has sent a confirmation link to the provided email address. Sign-in is allowed after email confirmation.",
+    );
+  }
+}
+
+export async function signIn(email: string, password: string) {
+  const { error } = await supabase.auth.signInWithPassword({ email, password });
+  if (error) {
+    throw error;
+  } else {
+    router.back();
+  }
+}
+
+export async function signOut() {
+  const { error } = await supabase.auth.signOut();
+  if (error) throw error;
+  router.replace("/(tabs)");
+}
+
+export async function getSession() {
+  const { data } = await supabase.auth.getSession();
+  return data.session;
+}
+
+export async function getCurrentUser() {
+  const { data } = await supabase.auth.getUser();
+  return data.user;
+}

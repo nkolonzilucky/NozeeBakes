@@ -23,6 +23,7 @@ export default function CartScreen() {
       .catch((error) => {
         if (String(error).includes("No authenticated user")) {
           alert("Please login");
+          router.push("/login" as RelativePathString);
         } else {
           alert("Error fetching cart items");
           console.log(error);

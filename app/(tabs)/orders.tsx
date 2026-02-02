@@ -15,6 +15,7 @@ export default function OrdersScreen() {
       .catch((error) => {
         if (String(error).includes("No authenticated user")) {
           alert("Please login.");
+          router.push("/login" as RelativePathString);
         } else {
           console.log(error);
         }

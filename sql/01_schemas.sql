@@ -95,8 +95,8 @@ where status = 'active';
 
 -- Seed data for product table
 
-insert into product (name, portion, size, price, imageURL, kalories,category, tag)
+insert into product (name, portion, weight, in_stock, price, image_url, calories,category, tag)
 values
-  ('Cheezy Vegetables',  1, 350, 9.49, 'nozeebakes/assets/images/food/cheddar_cheese.jpeg', 480,'Pizzas', 'New'),
-  ('Grated Cheese',  1, 350, 9.49, 'nozeebakes/assets/images/food/grated.jpeg', 480,'Pasta & Gnocchi', 'New'),
-  ('Mushrooms',  1, 350, 9.49, 'nozeebakes/assets/images/food/mushrooms.jpeg', 480,'Salads & Bowls', 'None'),
+  ('Cheezy Vegetables',  1, 350, 9.49, 3, 'nozeebakes/assets/images/food/cheddar_cheese.jpeg', 480,'Pizzas', 'New'),
+  ('Grated Cheese',  1, 350, 9.49, 2, 'nozeebakes/assets/images/food/grated.jpeg', 480,'Pasta & Gnocchi', 'New'),
+  ('Mushrooms',  1, 350, 9.49, 2, 'nozeebakes/assets/images/food/mushrooms.jpeg', 480,'Salads & Bowls', 'None')
