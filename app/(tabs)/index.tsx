@@ -106,27 +106,24 @@ export default function MenuScreen() {
           </Pressable>
         ))}
       </View>
-
       <PromoHearder product={ITEMS[0]} />
-
       <Text style={{ fontSize: 30, fontWeight: "bold", padding: 8 }}>
         {selectedCategory}
       </Text>
-
+      const NUM_COLUMNS = 2;
       {/* Food List */}
       <FlatList
         data={ITEMS}
         numColumns={2}
-        columnWrapperStyle={{
-          gap: 16,
-          padding: 10,
-          justifyContent: "center",
-        }}
-        contentContainerStyle={{
-          padding: 16,
-        }}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => <ProductCard product={item} />}
+        contentContainerStyle={{
+          paddingBottom: 16,
+          gap: 10,
+        }}
+        columnWrapperStyle={{
+          gap: 16,
+        }}
       />
     </View>
   );
