@@ -14,45 +14,146 @@ export type Database = {
   }
   public: {
     Tables: {
+      cart: {
+        Row: {
+          created_at: string
+          id: string
+          status: Database["public"]["Enums"]["cart_status"]
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          status?: Database["public"]["Enums"]["cart_status"]
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          status?: Database["public"]["Enums"]["cart_status"]
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      cart_item: {
+        Row: {
+          cart_id: string
+          created_at: string
+          id: string
+          product_id: string
+          quantity: number
+          updated_at: string
+        }
+        Insert: {
+          cart_id: string
+          created_at?: string
+          id?: string
+          product_id: string
+          quantity: number
+          updated_at?: string
+        }
+        Update: {
+          cart_id?: string
+          created_at?: string
+          id?: string
+          product_id?: string
+          quantity?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cart_item_cart_id_fkey"
+            columns: ["cart_id"]
+            isOneToOne: false
+            referencedRelation: "cart"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cart_item_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "product"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      order: {
+        Row: {
+          cart_id: string
+          created_at: string
+          id: string
+          status: Database["public"]["Enums"]["order_status"]
+          total_amount: number
+          user_id: string
+        }
+        Insert: {
+          cart_id: string
+          created_at?: string
+          id?: string
+          status?: Database["public"]["Enums"]["order_status"]
+          total_amount: number
+          user_id: string
+        }
+        Update: {
+          cart_id?: string
+          created_at?: string
+          id?: string
+          status?: Database["public"]["Enums"]["order_status"]
+          total_amount?: number
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "order_cart_id_fkey"
+            columns: ["cart_id"]
+            isOneToOne: false
+            referencedRelation: "cart"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       product: {
         Row: {
+          calories: number | null
           category: Database["public"]["Enums"]["product_category"]
           created_at: string
           id: string
-          imageurl: string | null
-          kalories: number | null
-          local_image_name: string | null
+          image_url: string | null
+          in_stock: number
           name: string
           portion: number
           price: number
-          size: number
           tag: Database["public"]["Enums"]["product_tag"]
+          weight: number
         }
         Insert: {
+          calories?: number | null
           category?: Database["public"]["Enums"]["product_category"]
           created_at?: string
           id?: string
-          imageurl?: string | null
-          kalories?: number | null
-          local_image_name?: string | null
+          image_url?: string | null
+          in_stock?: number
           name: string
           portion: number
           price: number
-          size: number
           tag?: Database["public"]["Enums"]["product_tag"]
+          weight: number
         }
         Update: {
+          calories?: number | null
           category?: Database["public"]["Enums"]["product_category"]
           created_at?: string
           id?: string
-          imageurl?: string | null
-          kalories?: number | null
-          local_image_name?: string | null
+          image_url?: string | null
+          in_stock?: number
           name?: string
           portion?: number
           price?: number
-          size?: number
           tag?: Database["public"]["Enums"]["product_tag"]
+          weight?: number
         }
         Relationships: []
       }
@@ -64,6 +165,8 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
+      cart_status: "active" | "checked_out" | "abandoned"
+      order_status: "pending" | "paid" | "cancelled" | "fulfilled"
       product_category:
         | "Salads & Bowls"
         | "Pasta & Gnocchi"
@@ -197,6 +300,8 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
+      cart_status: ["active", "checked_out", "abandoned"],
+      order_status: ["pending", "paid", "cancelled", "fulfilled"],
       product_category: [
         "Salads & Bowls",
         "Pasta & Gnocchi",
