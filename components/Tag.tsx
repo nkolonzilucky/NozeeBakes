@@ -1,12 +1,12 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import { Text } from "react-native";
+import React from "react";
 
 type Props = {
-    text: string;
-}
+  text: string;
+};
 
 const Tag = (props: Props) => {
-    const { text } = props;
+  const { text } = props;
   return (
     <Text
       style={{
@@ -25,8 +25,6 @@ const Tag = (props: Props) => {
       {text}
     </Text>
   );
-}
+};
 
-export default Tag
-
-
+export default Tag;

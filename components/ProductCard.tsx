@@ -11,9 +11,7 @@ const ProductCard = ({ product }: { product: Product }) => {
   const local_image_name = "on_wood";
   if (!local_image_name) return;
   return (
-    <Pressable
-    // onPress={() => addItemToCart(user.id, product.id)}
-    >
+    <Pressable onPress={() => addItemToCart(product.id)}>
       <View
         style={{
           backgroundColor: Colors.light.tint,

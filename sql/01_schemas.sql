@@ -52,6 +52,15 @@ create table "order" (
   created_at timestamptz not null default now()
 );
 
+create table order_item (
+  id uuid primary key default gen_random_uuid(),
+  order_id uuid not null references "order"(id) on delete cascade,
+  product_id uuid not null references product(id),
+  quantity integer not null check (quantity > 0),
+  price float not null
+);
+
+
 
 create type cart_status as enum (
   'active',

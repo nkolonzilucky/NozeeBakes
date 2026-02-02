@@ -1,65 +1,76 @@
-import { foodImages } from "@/assets/images/food/localImages";
-import {
-  View,
-  Text,
-  StyleSheet,
-  FlatList,
-  Image,
-  Pressable,
-} from "react-native";
-
-const CART_ITEMS = [
-  {
-    id: "1",
-    title: "Green bowl with chilli",
-    price: "$12.29",
-    qty: 1,
-    image: foodImages['presami'],
-  },
-  {
-    id: "2",
-    title: "Pizza on wood",
-    price: "$17.89",
-    qty: 2,
-    image: foodImages['on_wood'],
-  },
-];
+import { useEffect, useState } from "react";
+import { FlatList, Pressable, Text, View, StyleSheet } from "react-native";
+import { CartItemRow } from "@/components/CartItemRow";
+import { fetchCartItems, updateCartItemQuantity } from "@/lib/api/cart";
+import { checkoutCart } from "@/lib/api/orders";
+import { RelativePathString, router } from "expo-router";
 
 export default function CartScreen() {
+  const [items, setItems] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const total = items.reduce(
+    (sum, item) => sum + item.product.price * item.quantity,
+    0,
+  );
+
+  useEffect(() => {
+    fetchCartItemsOrRefresh();
+  }, []);
+
+  function fetchCartItemsOrRefresh() {
+    fetchCartItems()
+      .then(setItems)
+      .catch((error: string) => {
+        if (error.includes("No authenticated user")) {
+          alert("Please login");
+        } else {
+          alert("Error fetching cart items");
+          console.log(error);
+        }
+      })
+      .finally(() => setLoading(false));
+  }
+
+  async function handleUpdateQuantity(itemId: string, newQuantity: number) {
+    await updateCartItemQuantity(itemId, newQuantity);
+    fetchCartItemsOrRefresh();
+  }
+
+  async function handleCheckout() {
+    try {
+      await checkoutCart();
+      setItems([]);
+      router.push("/orders" as RelativePathString);
+    } catch (e) {
+      alert(e);
+    }
+  }
+
+  if (loading) {
+    return <Text>Loading cart…</Text>;
+  }
+
+  if (items.length === 0) {
+    return (
+      <View style={styles.emptyState}>
+        <Text style={styles.emptyText}>Your cart is empty</Text>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>My cart list</Text>
-
       <FlatList
-        data={CART_ITEMS}
+        data={items}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <View style={styles.item}>
-            <Image source={item.image} style={styles.image} />
-            <View style={{ flex: 1 }}>
-              <Text style={styles.title}>{item.title}</Text>
-              <View style={styles.qtyRow}>
-                <Pressable style={styles.qtyButton}>
-                  <Text>-</Text>
-                </Pressable>
-                <Text>{item.qty}</Text>
-                <Pressable style={styles.qtyButton}>
-                  <Text>+</Text>
-                </Pressable>
-              </View>
-            </View>
-            <Text style={styles.price}>{item.price}</Text>
-          </View>
+          <CartItemRow item={item} onUpdate={handleUpdateQuantity} />
         )}
       />
-
       <View style={styles.footer}>
-        <View style={styles.totalRow}>
-          <Text>Total</Text>
-          <Text style={styles.total}>$36.67</Text>
-        </View>
+        <Text style={styles.total}>Total: R {total}</Text>
 
-        <Pressable style={styles.checkout}>
+        <Pressable style={styles.checkout} onPress={handleCheckout}>
           <Text style={styles.checkoutText}>Checkout</Text>
         </Pressable>
       </View>
@@ -67,68 +78,57 @@ export default function CartScreen() {
   );
 }
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#9BE7AE",
+    backgroundColor: "#FFFFFF",
+  },
+
+  listContent: {
     padding: 16,
+    paddingBottom: 120, // space for footer
   },
-  header: {
-    fontSize: 20,
-    fontWeight: "700",
-    marginBottom: 16,
+
+  footer: {
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    right: 0,
+    padding: 16,
+    borderTopWidth: 1,
+    borderColor: "#E5E7EB",
+    backgroundColor: "#FFFFFF",
   },
-  item: {
-    backgroundColor: "#7EDC91",
-    borderRadius: 16,
-    padding: 12,
-    flexDirection: "row",
-    alignItems: "center",
+
+  total: {
+    fontSize: 16,
+    fontWeight: "600",
+    color: "#111827",
     marginBottom: 12,
+    textAlign: "center",
   },
-  image: {
-    width: 56,
-    height: 56,
-    borderRadius: 28,
-    marginRight: 12,
+
+  checkout: {
+    backgroundColor: "#111827",
+    paddingVertical: 14,
+    borderRadius: 12,
+    alignItems: "center",
   },
-  title: {
+
+  checkoutText: {
+    color: "#FFFFFF",
+    fontSize: 16,
     fontWeight: "600",
   },
-  qtyRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 8,
-    marginTop: 6,
-  },
-  qtyButton: {
-    backgroundColor: "#fff",
-    paddingHorizontal: 10,
-    borderRadius: 10,
-  },
-  price: {
-    fontWeight: "700",
-  },
-  footer: {
-    marginTop: "auto",
-  },
-  totalRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginBottom: 12,
-  },
-  total: {
-    fontSize: 18,
-    fontWeight: "700",
-  },
-  checkout: {
-    backgroundColor: "#111",
-    paddingVertical: 14,
-    borderRadius: 24,
+
+  emptyState: {
+    flex: 1,
+    justifyContent: "center",
     alignItems: "center",
   },
-  checkoutText: {
-    color: "#fff",
-    fontWeight: "700",
+
+  emptyText: {
+    color: "#6B7280",
+    fontSize: 14,
   },
 });

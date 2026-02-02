@@ -4,7 +4,8 @@ import { Product } from "@/types/helper.types";
 import ProductImage from "./ProductImage";
 
 const PromoHearder = ({ product }: { product: Product }) => {
-  const { name, size, kalories, price, local_image_name, tag } = product;
+  const { name, weight, calories, price, tag } = product;
+  const local_image_name = "on_wood";
   if (!local_image_name) return;
   return (
     <View style={styles.card}>
@@ -19,8 +20,8 @@ const PromoHearder = ({ product }: { product: Product }) => {
           <Text style={styles.metaText}>Restorian</Text>
           <Text style={styles.cardTitle}>{name}</Text>
           <View style={styles.meta}>
-            <Text style={styles.metaText}>{size}g</Text>
-            <Text style={styles.metaText}>{kalories}kcal</Text>
+            <Text style={styles.metaText}>{weight}g</Text>
+            <Text style={styles.metaText}>{calories}kcal</Text>
           </View>
         </View>
         <View style={styles.row}>

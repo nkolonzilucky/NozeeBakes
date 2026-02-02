@@ -23,8 +23,12 @@ export async function getOrCreateCart(userId: string): Promise<Cart> {
 }
 
 
-export async function addItemToCart(userId: string, productId: string): Promise<void> {
-  const cart = await getOrCreateCart(userId);
+export async function addItemToCart(productId: string): Promise<void> {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) throw new Error("No authenticated user");
+  const cart = await getOrCreateCart(user.id);
 
   const { data: existingItem } = await supabase
     .from("cart_item")
@@ -50,3 +54,50 @@ export async function addItemToCart(userId: string, productId: string): Promise<
     if (error) throw error;
   }
 }
+
+export async function fetchCartItems() {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) throw new Error("No authenticated user");
+  const cart = await getOrCreateCart(user.id);
+
+  const { data, error } = await supabase
+    .from("cart_item")
+    .select(
+      `
+      id,
+      quantity,
+      product:product_id (
+        id,
+        name,
+        price,
+        imageURL
+      )
+    `,
+    )
+    .eq("cart_id", cart.id);
+
+  if (error) throw error;
+  return data;
+}
+
+export async function updateCartItemQuantity(itemId: string, quantity: number) {
+  if (quantity <= 0) {
+    const { error } = await supabase
+      .from("cart_item")
+      .delete()
+      .eq("id", itemId);
+
+    if (error) throw error;
+    return;
+  }
+
+  const { error } = await supabase
+    .from("cart_item")
+    .update({ quantity })
+    .eq("id", itemId);
+
+  if (error) throw error;
+}
+
