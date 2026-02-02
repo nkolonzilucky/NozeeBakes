@@ -14,6 +14,20 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
+        tabBarIconStyle: {
+          flex: 1,
+          alignSelf: "center",
+          justifyContent: "center",
+          padding: 20,
+        },
+        tabBarLabelStyle: {
+          color: Colors.light.tabIconDefault,
+        },
+        // tabBarItemStyle: {
+        //   // backgroundColor: "red",
+        //   justifyContent: "flex-start",
+        //   alignItems: "center", //vertical
+        // },
         tabBarStyle: {
           flex: 1,
           position: "absolute",
@@ -22,7 +36,8 @@ export default function TabLayout() {
           height: "auto",
           alignItems: "center",
           justifyContent: "flex-end",
-          paddingTop: 18,
+
+          // paddingTop: 18,
           // paddingBottom: 0,
         },
         headerShown: true,

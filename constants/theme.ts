@@ -6,7 +6,7 @@
 import { Platform } from 'react-native';
 
 const tintColorLight = "#1fc04d"; // Primary brand green
-const tintColorDark = '#6FE08D';  // Softer green for dark mode
+const tintColorDark = '#56df7b';  // Softer green for dark mode
 
 
 export const Colors = {
@@ -23,9 +23,9 @@ export const Colors = {
     accent: "#0E0E0E", // CTA buttons (Add to cart, Checkout)
 
     // Icons & Tabs
-    icon: "#1F1F1F",
+    icon: "#000000",
     tabBarBackground: "#6FE08D",
-    tabIconDefault: "#1F1F1F",
+    tabIconDefault: "#4a0e0e",
     tabIconSelected: "#0E0E0E",
 
     // UI Elements

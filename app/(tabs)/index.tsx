@@ -110,7 +110,6 @@ export default function MenuScreen() {
       <Text style={{ fontSize: 30, fontWeight: "bold", padding: 8 }}>
         {selectedCategory}
       </Text>
-      const NUM_COLUMNS = 2;
       {/* Food List */}
       <FlatList
         data={ITEMS}

@@ -10,44 +10,31 @@ type Props = {
 
 export function TabIcon(props: Props) {
     const { focused, tabIcon } = props
-    const size = 28;
+  const size = 28;
+  const color = focused
+    ? Colors.light.tabIconSelected
+    : Colors.light.tabIconDefault;
     const icons = {
-      chef_hat: (
-        <ChefHat
-          size={size}
-          color={focused ? Colors.light.accent : Colors.light.icon}
-        />
+      chef_hat: focused ? (
+        <ChefHat size={size} color={color} fill={undefined} />
+      ) : (
+        <ChefHat size={size} color={color} />
       ),
-      search: (
-        <Search
-          size={size}
-          color={focused ? Colors.light.accent : Colors.light.icon}
-        />
+      search: focused ? (
+        <Search size={size} color={color} fill={undefined} />
+      ) : (
+        <Search size={size} color={color} />
       ),
-      shopping_bag: (
-        <ShoppingBasket
-          size={size}
-          color={focused ? Colors.light.accent : Colors.light.icon}
-        />
+      shopping_bag: focused ? (
+        <ShoppingBasket size={size} color={color} fill={undefined} />
+      ) : (
+        <ShoppingBasket size={size} color={color} />
       ),
-      user: (
-        <User
-          size={size}
-          color={focused ? Colors.light.accent : Colors.light.icon}
-          
-        />
+      user: focused ? (
+        <User size={size} color={color} fill={undefined} />
+      ) : (
+        <User size={size} color={color} />
       ),
     };
-  return (
-    <View
-      style={{
-        backgroundColor: focused ? Colors.light.surface : "transparent",
-        padding: 10,
-        borderRadius: 999,
-      }}
-      >
-          {icons[tabIcon as keyof typeof icons]}
-      
-    </View>
-  );
+  return <>{icons[tabIcon as keyof typeof icons]}</>;
 }
