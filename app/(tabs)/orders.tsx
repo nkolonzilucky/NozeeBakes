@@ -10,17 +10,28 @@ export default function OrdersScreen() {
 
   useEffect(() => {
     setLoading(true)
-    fetchOrders().then(setOrders).catch((error:string) => {
-      if (error.includes('No authenticated user')) {
-        alert('Please login.')
-      } else {
-        console.log(error)
-      }
-    }).finally(() => setLoading(false))
+    fetchOrders()
+      .then(setOrders)
+      .catch((error) => {
+        if (String(error).includes("No authenticated user")) {
+          alert("Please login.");
+        } else {
+          console.log(error);
+        }
+      })
+      .finally(() => setLoading(false));
     
   }, []);
 
-  if(loading) return <ActivityIndicator />
+  if (loading) return <ActivityIndicator />;
+
+  if (orders.length === 0) {
+    return (
+      <View style={styles.emptyState}>
+        <Text style={styles.emptyText}>Your have no orders yet</Text>
+      </View>
+    );
+  }
 
   return (
     <FlatList

@@ -20,8 +20,8 @@ export default function CartScreen() {
   function fetchCartItemsOrRefresh() {
     fetchCartItems()
       .then(setItems)
-      .catch((error: string) => {
-        if (error.includes("No authenticated user")) {
+      .catch((error) => {
+        if (String(error).includes("No authenticated user")) {
           alert("Please login");
         } else {
           alert("Error fetching cart items");
