@@ -1,14 +1,19 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Pressable } from "react-native";
 import React from "react";
 import { Product } from "@/types/helper.types";
 import ProductImage from "./ProductImage";
 import { Colors } from "@/constants/theme";
+import { addItemToCart } from "@/lib/api/cart";
+import { TabIcon } from "./TabIcon";
 
 const ProductCard = ({ product }: { product: Product }) => {
-  const { name, price, portion, local_image_name, tag } = product;
+  const { name, price, portion, tag } = product;
+  const local_image_name = "on_wood";
   if (!local_image_name) return;
   return (
-    <View>
+    <Pressable
+    // onPress={() => addItemToCart(user.id, product.id)}
+    >
       <View
         style={{
           backgroundColor: Colors.light.tint,
@@ -32,7 +37,20 @@ const ProductCard = ({ product }: { product: Product }) => {
           {name}
         </Text>
       </View>
-    </View>
+      <View
+        style={{
+          position: "absolute",
+          zIndex: 1000,
+          bottom: 58,
+          right: 0,
+          backgroundColor: "white",
+          borderRadius: 200,
+          padding: 4,
+        }}
+      >
+        <TabIcon focused={false} tabIcon="shopping_bag" />
+      </View>
+    </Pressable>
   );
 };
 
