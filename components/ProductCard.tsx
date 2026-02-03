@@ -36,7 +36,7 @@ const ProductCard = ({
       <View style={styles.info}>
         <View style={{ flexDirection: "row", gap: 4, alignItems: "center" }}>
           <Text style={styles.price}>${price.toFixed(2)}</Text>
-          <Text style={styles.portion}>{portion}/ portion</Text>
+          <Text style={styles.portion}>/{portion} portion</Text>
         </View>
         <Text numberOfLines={2} style={styles.title}>
           {name}
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   info: {
-    marginTop: 2,
+    marginTop: 8,
     gap: 4,
   },
   title: {
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     color: Colors.light.text,
   },
   portion: {
-    fontSize: 12,
+    fontSize: 14,
     color: Colors.light.textSecondary,
     alignSelf: "center",
   },

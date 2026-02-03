@@ -110,7 +110,8 @@ export default function MenuScreen() {
           gap: 10,
         }}
         columnWrapperStyle={{
-          marginBottom: 40,
+          // margin: 10,
+          gap: 16,
         }}
       />
     </View>
@@ -122,6 +123,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#9BE7AE",
     padding: 16,
+    marginBottom: 30,
   },
   categories: {
     flexDirection: "row",
