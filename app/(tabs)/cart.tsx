@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { FlatList, Pressable, Text, View, StyleSheet } from "react-native";
 import { CartItemRow } from "@/components/CartItemRow";
 import { fetchCartItems, updateCartItemQuantity } from "@/lib/api/cart";
 import { checkoutCart } from "@/lib/api/orders";
-import { RelativePathString, router } from "expo-router";
+import { RelativePathString, router, useFocusEffect } from "expo-router";
 
 export default function CartScreen() {
   const [items, setItems] = useState<any[]>([]);
@@ -13,9 +13,11 @@ export default function CartScreen() {
     0,
   );
 
-  useEffect(() => {
-    fetchCartItemsOrRefresh();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      fetchCartItemsOrRefresh();
+    }, []),
+  );
 
   function fetchCartItemsOrRefresh() {
     fetchCartItems()
@@ -82,7 +84,7 @@ export default function CartScreen() {
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#FFFFFF",
+    // backgroundColor: "#FFFFFF",
   },
 
   listContent: {
@@ -96,9 +98,9 @@ export const styles = StyleSheet.create({
     left: 0,
     right: 0,
     padding: 16,
-    borderTopWidth: 1,
-    borderColor: "#E5E7EB",
-    backgroundColor: "#FFFFFF",
+    // borderTopWidth: 1,
+    // borderColor: "#E5E7EB",
+    // backgroundColor: "#FFFFFF",
   },
 
   total: {

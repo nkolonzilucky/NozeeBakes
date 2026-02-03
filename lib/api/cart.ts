@@ -79,8 +79,8 @@ export async function fetchCartItems() {
     )
     .eq("cart_id", cart.id);
 
+    console.log("fetchCartItems: ", `cart ${cart.id}, data: ${data}`);
   if (error) throw error;
-  console.log("fetchCartItems: ", `cart ${cart.id}, data: ${data}`);
   return data;
 }
 

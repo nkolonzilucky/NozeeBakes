@@ -8,7 +8,7 @@ type Props = {
 
 export function TabIcon(props: Props) {
   const { focused, tabIcon } = props;
-  const size = 28;
+  const size = 24;
   const color = focused
     ? Colors.light.tabIconSelected
     : Colors.light.tabIconDefault;

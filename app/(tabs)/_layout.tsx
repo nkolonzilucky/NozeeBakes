@@ -49,7 +49,7 @@ export default function TabLayout() {
         },
         sceneStyle: {
           backgroundColor: "#9BE7AE",
-          marginBottom: 70,
+          marginBottom: 40,
         },
         tabBarButton: HapticTab,
       }}

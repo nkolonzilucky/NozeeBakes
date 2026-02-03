@@ -110,7 +110,7 @@ export default function MenuScreen() {
           gap: 10,
         }}
         columnWrapperStyle={{
-          gap: 16,
+          marginBottom: 40,
         }}
       />
     </View>
