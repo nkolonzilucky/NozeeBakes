@@ -3,9 +3,7 @@ import React from "react";
 import { Product } from "@/types/helper.types";
 import ProductImage from "./ProductImage";
 import { Colors } from "@/constants/theme";
-import { addItemToCart } from "@/lib/api/cart";
 import { TabIcon } from "./TabIcon";
-import { router } from "expo-router";
 
 const ProductCard = ({
   product,

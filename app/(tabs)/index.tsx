@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#9BE7AE",
     padding: 16,
-    marginBottom: 30,
+    marginBottom: 66,
   },
   categories: {
     flexDirection: "row",
