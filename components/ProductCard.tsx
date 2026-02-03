@@ -5,13 +5,20 @@ import ProductImage from "./ProductImage";
 import { Colors } from "@/constants/theme";
 import { addItemToCart } from "@/lib/api/cart";
 import { TabIcon } from "./TabIcon";
+import { router } from "expo-router";
 
-const ProductCard = ({ product }: { product: Product }) => {
+const ProductCard = ({
+  product,
+  onAddToCart,
+}: {
+  product: Product;
+  onAddToCart: (v: string) => void;
+}) => {
   const { name, price, portion, tag } = product;
   const local_image_name = "on_wood";
   if (!local_image_name) return;
   return (
-    <Pressable onPress={() => addItemToCart(product.id)}>
+    <Pressable onPress={() => onAddToCart(product.id)}>
       <View
         style={{
           backgroundColor: Colors.light.tint,

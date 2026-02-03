@@ -29,14 +29,14 @@ export async function addItemToCart(productId: string): Promise<void> {
   } = await supabase.auth.getUser();
   if (!user) throw new Error("No authenticated user");
   const cart = await getOrCreateCart(user.id);
-
+  
   const { data: existingItem } = await supabase
     .from("cart_item")
     .select("*")
     .eq("cart_id", cart.id)
     .eq("product_id", productId)
     .single();
-
+  
   if (existingItem) {
     const { error } = await supabase
       .from("cart_item")
@@ -53,6 +53,7 @@ export async function addItemToCart(productId: string): Promise<void> {
 
     if (error) throw error;
   }
+  console.log("addItemToCart: ", `userId ${user.id}, cart is: ${cart.status}`);
 }
 
 export async function fetchCartItems() {
@@ -66,19 +67,20 @@ export async function fetchCartItems() {
     .from("cart_item")
     .select(
       `
+    id,
+    quantity,
+    product:product_id (
       id,
-      quantity,
-      product:product_id (
-        id,
-        name,
-        price,
-        imageURL
+      name,
+      price,
+      image_url
       )
-    `,
+      `,
     )
     .eq("cart_id", cart.id);
 
   if (error) throw error;
+  console.log("fetchCartItems: ", `cart ${cart.id}, data: ${data}`);
   return data;
 }
 

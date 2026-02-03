@@ -1,81 +1,68 @@
 import ProductCard from "@/components/ProductCard";
 import PromoHearder from "@/components/PromoHearder";
+import { addItemToCart } from "@/lib/api/cart";
+import { fetchProducts } from "@/lib/api/product";
 import { Product } from "@/types/helper.types";
-import { useState } from "react";
-import { View, Text, StyleSheet, Pressable, FlatList } from "react-native";
+import { router, useFocusEffect } from "expo-router";
+import { useCallback, useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Pressable,
+  FlatList,
+  ActivityIndicator,
+} from "react-native";
 
 const CATEGORIES = ["All", "Salads & Bowls", "Pasta & Gnocchi"];
 
-const ITEMS: Product[] = [
-  {
-    id: "1",
-    name: "Cheezy vegetables",
-    calories: 480,
-    weight: 350,
-    price: 9.49,
-    image_url: "local",
-    tag: "New",
-    category: "Pizzas",
-    created_at: new Date().toISOString(),
-    in_stock: 3,
-    portion: 1,
-  },
-  {
-    id: "2",
-    name: "Mushroom Pizza",
-    calories: 480,
-    weight: 350,
-    price: 9.49,
-    image_url: "local",
-    tag: "New",
-    category: "Pizzas",
-    created_at: new Date().toISOString(),
-    in_stock: 3,
-    portion: 1,
-  },
-  {
-    id: "3",
-    name: "On Wood Pizza",
-    calories: 480,
-    weight: 350,
-    price: 9.49,
-    image_url: "local",
-    tag: "New",
-    category: "Pizzas",
-    created_at: new Date().toISOString(),
-    in_stock: 2,
-    portion: 1,
-  },
-  {
-    id: "4",
-    name: "Pressami Pizza",
-    calories: 480,
-    weight: 350,
-    price: 9.49,
-    image_url: "local",
-    tag: "New",
-    category: "Pizzas",
-    created_at: new Date().toISOString(),
-    in_stock: 2,
-    portion: 1,
-  },
-  {
-    id: "5",
-    name: "Veggie Pizza",
-    calories: 480,
-    weight: 350,
-    price: 9.49,
-    image_url: "local",
-    tag: "New",
-    category: "Pizzas",
-    created_at: new Date().toISOString(),
-    in_stock: 2,
-    portion: 1,
-  },
-];
-
 export default function MenuScreen() {
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [items, setItems] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  useFocusEffect(
+    useCallback(() => {
+      refreshProducts();
+    }, []),
+  );
+
+  async function refreshProducts() {
+    try {
+      setLoading(true);
+      const data = await fetchProducts();
+      setItems(data);
+    } catch (error) {
+      alert("Error while loading the menu");
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  function handleAddToCart(product_id: string) {
+    addItemToCart(product_id).catch((error) => {
+      if (String(error).includes("No authenticated user")) {
+        console.log("ProductCard:", `add productId ${product_id}`);
+        alert("Please login to create a cart");
+        router.push("/login");
+      } else {
+        alert("Error while adding to cart");
+        console.log(error);
+      }
+    });
+  }
+
+  if (loading) return <ActivityIndicator />;
+
+  if (items.length === 0) {
+    return (
+      <View style={styles.emptyState}>
+        <Text style={styles.emptyText}>Your cart is empty</Text>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
       {/* Categories */}
@@ -106,16 +93,18 @@ export default function MenuScreen() {
           </Pressable>
         ))}
       </View>
-      <PromoHearder product={ITEMS[0]} />
+      <PromoHearder product={items[0]} />
       <Text style={{ fontSize: 30, fontWeight: "bold", padding: 8 }}>
         {selectedCategory}
       </Text>
       {/* Food List */}
       <FlatList
-        data={ITEMS}
+        data={items}
         numColumns={2}
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <ProductCard product={item} />}
+        renderItem={({ item }) => (
+          <ProductCard product={item} onAddToCart={handleAddToCart} />
+        )}
         contentContainerStyle={{
           paddingBottom: 16,
           gap: 10,
@@ -144,5 +133,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 14,
     backgroundColor: "#7EDC91",
     borderRadius: 20,
+  },
+  emptyState: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  emptyText: {
+    color: "#6B7280",
+    fontSize: 14,
   },
 });
