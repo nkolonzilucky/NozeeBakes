@@ -4,9 +4,10 @@ import { CartItemRow } from "@/components/CartItemRow";
 import { fetchCartItems, updateCartItemQuantity } from "@/lib/api/cart";
 import { checkoutCart } from "@/lib/api/orders";
 import { RelativePathString, router, useFocusEffect } from "expo-router";
+import { Cart_Item_With_Product } from "@/types/helper.types";
 
 export default function CartScreen() {
-  const [items, setItems] = useState<any[]>([]);
+  const [items, setItems] = useState<Cart_Item_With_Product[]>([]);
   const [loading, setLoading] = useState(true);
   const total = items.reduce(
     (sum, item) => sum + item.product.price * item.quantity,
@@ -21,7 +22,7 @@ export default function CartScreen() {
 
   function fetchCartItemsOrRefresh() {
     fetchCartItems()
-      .then(setItems)
+      .then((data) => setItems(data))
       .catch((error) => {
         if (String(error).includes("No authenticated user")) {
           alert("Please login");
@@ -84,6 +85,8 @@ export default function CartScreen() {
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginTop: 20,
+    marginHorizontal: 16,
     // backgroundColor: "#FFFFFF",
   },
 

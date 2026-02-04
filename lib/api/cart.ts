@@ -1,5 +1,5 @@
 import { supabase } from "@/supabase";
-import { Cart } from "@/types/helper.types";
+import { Cart, Cart_Item_With_Product } from "@/types/helper.types";
 
 
 export async function getOrCreateCart(userId: string): Promise<Cart> {
@@ -56,7 +56,7 @@ export async function addItemToCart(productId: string): Promise<void> {
   console.log("addItemToCart: ", `userId ${user.id}, cart is: ${cart.status}`);
 }
 
-export async function fetchCartItems() {
+export async function fetchCartItems(): Promise<Cart_Item_With_Product[]> {
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -67,21 +67,17 @@ export async function fetchCartItems() {
     .from("cart_item")
     .select(
       `
-    id,
-    quantity,
-    product:product_id (
-      id,
-      name,
-      price,
-      image_url
+    *,
+    product (
+      *
       )
       `,
     )
     .eq("cart_id", cart.id);
 
-    console.log("fetchCartItems: ", `cart ${cart.id}, data: ${data}`);
+  console.log("fetchCartItems: ", `cart ${cart.id}, data: ${data}`);
   if (error) throw error;
-  return data;
+  return data as unknown as Cart_Item_With_Product[];
 }
 
 export async function updateCartItemQuantity(itemId: string, quantity: number) {

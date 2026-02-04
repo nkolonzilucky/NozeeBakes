@@ -1,39 +1,48 @@
 import { View, Text, Pressable, StyleSheet } from "react-native";
+import ProductImage from "./ProductImage";
+import { local_image_name } from "@/constants/default_image";
+import { Cart_Item_With_Product } from "@/types/helper.types";
+import ControlsComponent from "./ControlsComponent";
 
 type Props = {
-  item: {
-    id: string;
-    name: string;
-    price: number;
-    quantity: number;
-  };
+  item: Cart_Item_With_Product;
   onUpdate: (id: string, quantity: number) => void;
 };
 
 export function CartItemRow({ item, onUpdate }: Props) {
+  const {
+    product: { name, portion, weight, price },
+    id,
+    quantity,
+  } = item;
   return (
-    <View style={styles.container}>
-      <View style={styles.info}>
-        <Text style={styles.name}>{item.name}</Text>
-        <Text style={styles.price}>R {item.price}</Text>
+    <View style={styles.card}>
+      <View
+        style={{ backgroundColor: "#1fc04d", padding: 4, borderRadius: 16 }}
+      >
+        <ProductImage
+          local_image_name={local_image_name}
+          tag_text={"None"}
+          width={100}
+          height={100}
+        />
       </View>
-
-      <View style={styles.controls}>
-        <Pressable
-          style={styles.control}
-          onPress={() => onUpdate(item.id, item.quantity - 1)}
-        >
-          <Text style={styles.controlText}>−</Text>
-        </Pressable>
-
-        <Text style={styles.quantity}>{item.quantity}</Text>
-
-        <Pressable
-          style={styles.control}
-          onPress={() => onUpdate(item.id, item.quantity + 1)}
-        >
-          <Text style={styles.controlText}>+</Text>
-        </Pressable>
+      <View style={styles.cardContent}>
+        <View style={{ gap: 4 }}>
+          <Text style={styles.cardTitle}>{name}</Text>
+          <View style={styles.meta}>
+            <Text style={styles.metaText}>{portion} portion/</Text>
+            <Text style={styles.metaText}>{weight}g</Text>
+          </View>
+        </View>
+        <View style={styles.row}>
+          <ControlsComponent
+            cart_item_id={id}
+            onUpdate={onUpdate}
+            quantity={quantity}
+          />
+          <Text style={styles.price}>${price}</Text>
+        </View>
       </View>
     </View>
   );
@@ -65,36 +74,38 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
 
-  price: {
-    fontSize: 13,
-    color: "#6B7280",
-  },
-
-  controls: {
+  card: {
+    borderRadius: 28,
+    padding: 4,
     flexDirection: "row",
-    alignItems: "center",
+    marginBottom: 0,
+    paddingHorizontal: 6,
   },
-
-  control: {
-    width: 32,
-    height: 32,
-    borderRadius: 8,
-    backgroundColor: "#F3F4F6",
-    alignItems: "center",
-    justifyContent: "center",
+  cardContent: {
+    flex: 1,
+    marginLeft: 12,
+    justifyContent: "space-between",
   },
-
-  controlText: {
+  cardTitle: {
     fontSize: 18,
     fontWeight: "600",
-    color: "#111827",
   },
-
-  quantity: {
-    width: 32,
-    textAlign: "center",
-    fontSize: 14,
-    fontWeight: "500",
-    color: "#111827",
+  meta: {
+    flexDirection: "row",
+    gap: 14,
+    marginVertical: 4,
+  },
+  metaText: {
+    fontSize: 16,
+    opacity: 0.7,
+  },
+  row: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  price: {
+    fontSize: 20,
+    fontWeight: "600",
   },
 });

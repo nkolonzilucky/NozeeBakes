@@ -1,0 +1,1 @@
+export const local_image_name = "on_wood";

@@ -7,7 +7,7 @@ type Props = {
 
 const Tag = (props: Props) => {
   const { text } = props;
-  return (
+  return text !== "None" ? (
     <Text
       style={{
         position: "absolute",
@@ -24,6 +24,8 @@ const Tag = (props: Props) => {
     >
       {text}
     </Text>
+  ) : (
+    <></>
   );
 };
 

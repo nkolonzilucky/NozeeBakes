@@ -4,6 +4,7 @@ import { Product } from "@/types/helper.types";
 import ProductImage from "./ProductImage";
 import { Colors } from "@/constants/theme";
 import { TabIcon } from "./TabIcon";
+import { local_image_name } from "@/constants/default_image";
 
 const ProductCard = ({
   product,
@@ -13,8 +14,6 @@ const ProductCard = ({
   onAddToCart: (v: string) => void;
 }) => {
   const { name, price, portion, tag } = product;
-  const local_image_name = "on_wood";
-  if (!local_image_name) return;
   return (
     <Pressable onPress={() => onAddToCart(product.id)}>
       <View
