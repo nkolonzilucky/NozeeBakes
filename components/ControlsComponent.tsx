@@ -1,27 +1,45 @@
 import { View, Text, Pressable, StyleSheet } from 'react-native'
 import React from 'react'
 
-const ControlsComponent = ({ cart_item_id, quantity, onUpdate }: { cart_item_id: string; quantity: number;  onUpdate:(v:string,quantity:number) => void}) => {
+const ControlsComponent = ({
+  cart_item_id,
+  setQuantityState,
+  quantityState,
+  quantity,
+  onUpdate,
+}: {
+  cart_item_id: string;
+  quantity: number;
+  quantityState: number;
+  setQuantityState: (v: number) => void;
+  onUpdate: (v: string, quantity: number) => void;
+}) => {
   return (
-     <View style={styles.controls}>
-            <Pressable
-              style={styles.control}
-              onPress={() => onUpdate(cart_item_id, quantity - 1)}
-            >
-              <Text style={styles.controlText}>−</Text>
-            </Pressable>
-    
-            <Text style={styles.quantity}>{quantity}</Text>
-    
-            <Pressable
-              style={styles.control}
-              onPress={() => onUpdate(cart_item_id, quantity + 1)}
-            >
-              <Text style={styles.controlText}>+</Text>
-            </Pressable>
-          </View>
-  )
-}
+    <View style={styles.controls}>
+      <Pressable
+        style={styles.control}
+        onPress={() => {
+          setQuantityState(quantityState - 1);
+          onUpdate(cart_item_id, quantity - 1);
+        }}
+      >
+        <Text style={styles.controlText}>−</Text>
+      </Pressable>
+
+      <Text style={styles.quantity}>{quantityState}</Text>
+
+      <Pressable
+        style={styles.control}
+        onPress={() => {
+          setQuantityState(quantityState + 1);
+          onUpdate(cart_item_id, quantity + 1);
+        }}
+      >
+        <Text style={styles.controlText}>+</Text>
+      </Pressable>
+    </View>
+  );
+};
 
 export default ControlsComponent
 

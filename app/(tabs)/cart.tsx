@@ -37,7 +37,7 @@ export default function CartScreen() {
 
   async function handleUpdateQuantity(itemId: string, newQuantity: number) {
     await updateCartItemQuantity(itemId, newQuantity);
-    fetchCartItemsOrRefresh();
+    // fetchCartItemsOrRefresh();
   }
 
   async function handleCheckout() {

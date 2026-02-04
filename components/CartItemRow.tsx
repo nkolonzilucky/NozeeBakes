@@ -1,8 +1,9 @@
-import { View, Text, Pressable, StyleSheet } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import ProductImage from "./ProductImage";
 import { local_image_name } from "@/constants/default_image";
 import { Cart_Item_With_Product } from "@/types/helper.types";
 import ControlsComponent from "./ControlsComponent";
+import { useState } from "react";
 
 type Props = {
   item: Cart_Item_With_Product;
@@ -15,6 +16,8 @@ export function CartItemRow({ item, onUpdate }: Props) {
     id,
     quantity,
   } = item;
+  const [quantityState, setQuantityState] = useState(quantity);
+
   return (
     <View style={styles.card}>
       <View
@@ -38,6 +41,8 @@ export function CartItemRow({ item, onUpdate }: Props) {
         <View style={styles.row}>
           <ControlsComponent
             cart_item_id={id}
+            quantityState={quantityState}
+            setQuantityState={setQuantityState}
             onUpdate={onUpdate}
             quantity={quantity}
           />
