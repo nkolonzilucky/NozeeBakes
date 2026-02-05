@@ -1,29 +1,18 @@
 import { View, Text, StyleSheet } from "react-native";
 import ProductImage from "./ProductImage";
 import { local_image_name } from "@/constants/default_image";
-import { Cart_Item_With_Product } from "@/types/helper.types";
 import ControlsComponent from "./ControlsComponent";
-import { useEffect, useState } from "react";
+import { CartItemWithProduct } from "@/types/cart";
 
 type Props = {
-  item: Cart_Item_With_Product;
-  localTotal: number;
-  setLocalTotal: (v: number) => void;
-  onUpdate: (id: string, quantity: number) => void;
+  item: CartItemWithProduct;
 };
 
-export function CartItemRow({
-  item,
-  onUpdate,
-  setLocalTotal,
-  localTotal,
-}: Props) {
+export function CartItemRow({ item }: Props) {
   const {
     product: { name, portion, weight, price },
     id,
-    quantity,
   } = item;
-  const [quantityState, setQuantityState] = useState(quantity);
 
   return (
     <View style={styles.card}>
@@ -46,17 +35,8 @@ export function CartItemRow({
           </View>
         </View>
         <View style={styles.row}>
-          <ControlsComponent
-            cart_item_id={id}
-            quantityState={quantityState}
-            setQuantityState={setQuantityState}
-            onUpdate={onUpdate}
-            quantity={quantity}
-            localTotal={localTotal}
-            setLocalTotal={setLocalTotal}
-            price={price}
-          />
-          <Text style={styles.price}>${price * quantityState}</Text>
+          <ControlsComponent cart_item_id={id} />
+          <Text style={styles.price}>${price}</Text>
         </View>
       </View>
     </View>

@@ -1,50 +1,23 @@
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { FlatList, Pressable, Text, View, StyleSheet } from "react-native";
 import { CartItemRow } from "@/components/CartItemRow";
-import { fetchCartItems, updateCartItemQuantity } from "@/lib/api/cart";
 import { checkoutCart } from "@/lib/api/orders";
-import { RelativePathString, router, useFocusEffect } from "expo-router";
-import { Cart_Item_With_Product } from "@/types/helper.types";
+import { RelativePathString, router } from "expo-router";
+import { useCart } from "@/context/CartContext";
 
 export default function CartScreen() {
-  const [items, setItems] = useState<Cart_Item_With_Product[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { items, clearCart } = useCart();
+  const [loading, setLoading] = useState(false);
   const total = items.reduce(
     (sum, item) => sum + item.product.price * item.quantity,
     0,
   );
-  const [localTotal, setLocalTotal] = useState<number>(total);
-
-  useFocusEffect(
-    useCallback(() => {
-      fetchCartItemsOrRefresh();
-    }, []),
-  );
-
-  function fetchCartItemsOrRefresh() {
-    fetchCartItems()
-      .then((data) => setItems(data))
-      .catch((error) => {
-        if (String(error).includes("No authenticated user")) {
-          alert("Please login");
-          router.push("/login" as RelativePathString);
-        } else {
-          alert("Error fetching cart items");
-          console.log(error);
-        }
-      })
-      .finally(() => setLoading(false));
-  }
-
-  async function handleUpdateQuantity(itemId: string, newQuantity: number) {
-    await updateCartItemQuantity(itemId, newQuantity);
-  }
 
   async function handleCheckout() {
     try {
-      fetchCartItemsOrRefresh();
+      setLoading(true);
       await checkoutCart();
-      setItems([]);
+      clearCart();
       router.push("/orders" as RelativePathString);
     } catch (e) {
       alert(e);
@@ -68,17 +41,10 @@ export default function CartScreen() {
       <FlatList
         data={items}
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <CartItemRow
-            item={item}
-            onUpdate={handleUpdateQuantity}
-            setLocalTotal={setLocalTotal}
-            localTotal={localTotal}
-          />
-        )}
+        renderItem={({ item }) => <CartItemRow item={item} />}
       />
       <View style={styles.footer}>
-        <Text style={styles.total}>Total: R {localTotal}</Text>
+        <Text style={styles.total}>Total: R {total}</Text>
 
         <Pressable style={styles.checkout} onPress={handleCheckout}>
           <Text style={styles.checkoutText}>Checkout</Text>
@@ -93,7 +59,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     marginTop: 20,
     marginHorizontal: 16,
-    marginBottom: 60,
+    marginBottom: 80,
     // backgroundColor: "#FFFFFF",
   },
 

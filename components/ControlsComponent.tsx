@@ -1,46 +1,23 @@
 import { View, Text, Pressable, StyleSheet } from 'react-native'
 import React from 'react'
+import { useCart } from "@/context/CartContext";
 
-const ControlsComponent = ({
-  cart_item_id,
-  setQuantityState,
-  quantityState,
-  quantity,
-  onUpdate,
-  localTotal,
-  price,
-  setLocalTotal,
-}: {
-  cart_item_id: string;
-  quantity: number;
-  quantityState: number;
-  localTotal: number;
-  price: number;
-  setLocalTotal: (v: number) => void;
-  setQuantityState: (v: number) => void;
-  onUpdate: (v: string, quantity: number) => void;
-}) => {
+const ControlsComponent = ({ cart_item_id }: { cart_item_id: string }) => {
+  const { increment, decrement, items } = useCart();
   return (
     <View style={styles.controls}>
-      <Pressable
-        style={styles.control}
-        onPress={() => {
-          setLocalTotal(localTotal - quantityState * price);
-          setQuantityState(quantityState - 1);
-          onUpdate(cart_item_id, quantity - 1);
-        }}
-      >
+      <Pressable style={styles.control} onPress={() => decrement(cart_item_id)}>
         <Text style={styles.controlText}>−</Text>
       </Pressable>
 
-      <Text style={styles.quantity}>{quantityState}</Text>
+      <Text style={styles.quantity}>
+        {items.find((i) => i.id === cart_item_id)?.quantity}
+      </Text>
 
       <Pressable
         style={styles.control}
         onPress={() => {
-          setLocalTotal(localTotal + quantityState * price);
-          setQuantityState(quantityState + 1);
-          onUpdate(cart_item_id, quantity + 1);
+          increment(cart_item_id);
         }}
       >
         <Text style={styles.controlText}>+</Text>

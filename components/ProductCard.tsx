@@ -5,17 +5,22 @@ import ProductImage from "./ProductImage";
 import { Colors } from "@/constants/theme";
 import { TabIcon } from "./TabIcon";
 import { local_image_name } from "@/constants/default_image";
+import { useCart } from "@/context/CartContext";
+import * as Crypto from "expo-crypto";
 
-const ProductCard = ({
-  product,
-  onAddToCart,
-}: {
-  product: Product;
-  onAddToCart: (v: string) => void;
-}) => {
+const ProductCard = ({ product }: { product: Product }) => {
   const { name, price, portion, tag } = product;
+  const { addItem } = useCart();
   return (
-    <Pressable onPress={() => onAddToCart(product.id)}>
+    <Pressable
+      onPress={() =>
+        addItem({
+          product_id: product.id,
+          product: product,
+          id: Crypto.randomUUID(),
+        })
+      }
+    >
       <View
         style={{
           backgroundColor: Colors.light.tint,

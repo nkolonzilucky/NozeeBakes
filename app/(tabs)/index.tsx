@@ -40,18 +40,6 @@ export default function MenuScreen() {
     }
   }
 
-  function handleAddToCart(product_id: string) {
-    addItemToCart(product_id).catch((error) => {
-      if (String(error).includes("No authenticated user")) {
-        console.log("ProductCard:", `add productId ${product_id}`);
-        alert("Please login to create a cart");
-        router.push("/login");
-      } else {
-        alert("Error while adding to cart");
-        console.log(error);
-      }
-    });
-  }
 
   if (loading) return <ActivityIndicator />;
 
@@ -102,9 +90,7 @@ export default function MenuScreen() {
         data={items}
         numColumns={2}
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <ProductCard product={item} onAddToCart={handleAddToCart} />
-        )}
+        renderItem={({ item }) => <ProductCard product={item} />}
         contentContainerStyle={{
           paddingBottom: 16,
           gap: 10,
