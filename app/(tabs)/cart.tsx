@@ -59,7 +59,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     marginTop: 20,
     marginHorizontal: 16,
-    marginBottom: 80,
+    marginBottom: 100,
     // backgroundColor: "#FFFFFF",
   },
 
