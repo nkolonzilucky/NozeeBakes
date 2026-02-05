@@ -2,11 +2,10 @@ import { View, Text, Pressable, StyleSheet } from "react-native";
 import React from "react";
 import { Product } from "@/types/helper.types";
 import ProductImage from "./ProductImage";
+import { local_image_name } from "@/constants/default_image";
 
 const PromoHearder = ({ product }: { product: Product }) => {
   const { name, weight, calories, price, tag } = product;
-  const local_image_name = "on_wood";
-  if (!local_image_name) return;
   return (
     <View style={styles.card}>
       <ProductImage

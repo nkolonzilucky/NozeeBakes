@@ -13,6 +13,7 @@ export default function CartScreen() {
     (sum, item) => sum + item.product.price * item.quantity,
     0,
   );
+  const [localTotal, setLocalTotal] = useState<number>(total);
 
   useFocusEffect(
     useCallback(() => {
@@ -37,11 +38,11 @@ export default function CartScreen() {
 
   async function handleUpdateQuantity(itemId: string, newQuantity: number) {
     await updateCartItemQuantity(itemId, newQuantity);
-    // fetchCartItemsOrRefresh();
   }
 
   async function handleCheckout() {
     try {
+      fetchCartItemsOrRefresh();
       await checkoutCart();
       setItems([]);
       router.push("/orders" as RelativePathString);
@@ -68,11 +69,16 @@ export default function CartScreen() {
         data={items}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <CartItemRow item={item} onUpdate={handleUpdateQuantity} />
+          <CartItemRow
+            item={item}
+            onUpdate={handleUpdateQuantity}
+            setLocalTotal={setLocalTotal}
+            localTotal={localTotal}
+          />
         )}
       />
       <View style={styles.footer}>
-        <Text style={styles.total}>Total: R {total}</Text>
+        <Text style={styles.total}>Total: R {localTotal}</Text>
 
         <Pressable style={styles.checkout} onPress={handleCheckout}>
           <Text style={styles.checkoutText}>Checkout</Text>
@@ -87,6 +93,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     marginTop: 20,
     marginHorizontal: 16,
+    marginBottom: 60,
     // backgroundColor: "#FFFFFF",
   },
 

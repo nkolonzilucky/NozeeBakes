@@ -7,10 +7,16 @@ const ControlsComponent = ({
   quantityState,
   quantity,
   onUpdate,
+  localTotal,
+  price,
+  setLocalTotal,
 }: {
   cart_item_id: string;
   quantity: number;
   quantityState: number;
+  localTotal: number;
+  price: number;
+  setLocalTotal: (v: number) => void;
   setQuantityState: (v: number) => void;
   onUpdate: (v: string, quantity: number) => void;
 }) => {
@@ -19,6 +25,7 @@ const ControlsComponent = ({
       <Pressable
         style={styles.control}
         onPress={() => {
+          setLocalTotal(localTotal - quantityState * price);
           setQuantityState(quantityState - 1);
           onUpdate(cart_item_id, quantity - 1);
         }}
@@ -31,6 +38,7 @@ const ControlsComponent = ({
       <Pressable
         style={styles.control}
         onPress={() => {
+          setLocalTotal(localTotal + quantityState * price);
           setQuantityState(quantityState + 1);
           onUpdate(cart_item_id, quantity + 1);
         }}

@@ -1,1 +1,1 @@
-export const local_image_name = "on_wood";
+export const local_image_name = "mushrooms";

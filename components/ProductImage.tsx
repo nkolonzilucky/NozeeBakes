@@ -23,7 +23,8 @@ const ProductImage = (props: Props) => {
         style={{
           width: width,
           height: height,
-          borderRadius: 6000,
+          borderRadius: 60000,
+          padding: 0,
           position: "relative",
         }}
         resizeMode="center"

@@ -3,14 +3,21 @@ import ProductImage from "./ProductImage";
 import { local_image_name } from "@/constants/default_image";
 import { Cart_Item_With_Product } from "@/types/helper.types";
 import ControlsComponent from "./ControlsComponent";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type Props = {
   item: Cart_Item_With_Product;
+  localTotal: number;
+  setLocalTotal: (v: number) => void;
   onUpdate: (id: string, quantity: number) => void;
 };
 
-export function CartItemRow({ item, onUpdate }: Props) {
+export function CartItemRow({
+  item,
+  onUpdate,
+  setLocalTotal,
+  localTotal,
+}: Props) {
   const {
     product: { name, portion, weight, price },
     id,
@@ -45,8 +52,11 @@ export function CartItemRow({ item, onUpdate }: Props) {
             setQuantityState={setQuantityState}
             onUpdate={onUpdate}
             quantity={quantity}
+            localTotal={localTotal}
+            setLocalTotal={setLocalTotal}
+            price={price}
           />
-          <Text style={styles.price}>${price}</Text>
+          <Text style={styles.price}>${price * quantityState}</Text>
         </View>
       </View>
     </View>
