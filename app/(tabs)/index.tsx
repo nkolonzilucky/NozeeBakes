@@ -1,9 +1,8 @@
 import ProductCard from "@/components/ProductCard";
 import PromoHearder from "@/components/PromoHearder";
-import { addItemToCart } from "@/lib/api/cart";
 import { fetchProducts } from "@/lib/api/product";
 import { Product } from "@/types/helper.types";
-import { router, useFocusEffect } from "expo-router";
+import { useFocusEffect } from "expo-router";
 import { useCallback, useState } from "react";
 import {
   View,
