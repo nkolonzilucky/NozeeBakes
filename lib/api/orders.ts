@@ -1,7 +1,6 @@
 import { supabase } from "@/supabase";
 import { getOrCreateCart } from "./cart";
 import { Order } from "@/types/helper.types";
-import { useCart } from "@/context/CartContext";
 import { CartItemWithProduct } from "@/types/cart";
 
 export async function checkoutCart(items: CartItemWithProduct[]) {

@@ -1,17 +1,13 @@
-import { Tabs } from 'expo-router';
-import React, { createContext, useContext, useState } from "react";
+import { Tabs } from "expo-router";
 
 import { HapticTab } from "@/components/haptic-tab";
-import { Colors } from '@/constants/theme';
-import { useColorScheme } from '@/hooks/use-color-scheme';
+import { Colors } from "@/constants/theme";
+import { useColorScheme } from "@/hooks/use-color-scheme";
 import HeaderComponent from "@/components/HeaderComponent";
 import { TabIcon } from "@/components/TabIcon";
-import { Cart, Cart_Item_With_Product } from "@/types/helper.types";
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
-
-
 
   return (
     <Tabs

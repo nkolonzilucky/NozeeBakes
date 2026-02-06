@@ -31,7 +31,13 @@ export default function OrderDetailScreen() {
     );
 
   return (
-    <View style={{ padding: 16, backgroundColor: Colors.light.surface, height:'100%' }}>
+    <View
+      style={{
+        padding: 16,
+        backgroundColor: Colors.light.surface,
+        paddingBottom: 600,
+      }}
+    >
       <OrderHeader order={order} />
 
       <FlatList

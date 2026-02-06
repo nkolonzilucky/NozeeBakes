@@ -22,10 +22,6 @@ export default function RootLayout() {
             name="login"
             options={{ headerShown: false, title: "Login" }}
           />
-          <Stack.Screen
-            name="(orders)"
-            options={{ headerShown: false, title: "orders" }}
-          />
         </Stack>
         <StatusBar style="auto" />
       </CartProvider>
