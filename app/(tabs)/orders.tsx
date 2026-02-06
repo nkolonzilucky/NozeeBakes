@@ -1,8 +1,8 @@
 import { Colors } from "@/constants/theme";
 import { fetchOrders } from "@/lib/api/orders";
 import { Order } from "@/types/helper.types";
-import { RelativePathString, router } from "expo-router";
-import { useEffect, useState } from "react";
+import { RelativePathString, router, useFocusEffect } from "expo-router";
+import { useCallback, useState } from "react";
 import {
   FlatList,
   View,
@@ -16,20 +16,22 @@ export default function OrdersScreen() {
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    setLoading(true);
-    fetchOrders()
-      .then(setOrders)
-      .catch((error) => {
-        if (String(error).includes("No authenticated user")) {
-          alert("Please login.");
-          router.push("/login" as RelativePathString);
-        } else {
-          console.log(error);
-        }
-      })
-      .finally(() => setLoading(false));
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      setLoading(true);
+      fetchOrders()
+        .then(setOrders)
+        .catch((error) => {
+          if (String(error).includes("No authenticated user")) {
+            alert("Please login.");
+            router.push("/login" as RelativePathString);
+          } else {
+            console.log(error);
+          }
+        })
+        .finally(() => setLoading(false));
+    }, []),
+  );
 
   if (loading) return <ActivityIndicator />;
 

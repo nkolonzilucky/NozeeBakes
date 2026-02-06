@@ -15,20 +15,11 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <CartProvider>
-        <Stack>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen
-            name="login"
-            options={{ headerShown: false, title: "Login" }}
-          />
-          <Stack.Screen
-            name="(orders)"
-            options={{ headerShown: false, title: "orders" }}
-          />
+        <Stack screenOptions={{headerShown:false}}>
+          <Stack.Screen name="[id]" options={{ headerShown: false }} />
         </Stack>
         <StatusBar style="auto" />
-      </CartProvider>
+
     </ThemeProvider>
   );
 }

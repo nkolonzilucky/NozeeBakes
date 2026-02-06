@@ -1,5 +1,6 @@
 import { OrderHeader } from "@/components/OrderHeader";
 import { OrderItemRow } from "@/components/OrderItemRow";
+import { Colors } from "@/constants/theme";
 import { fetchOrderDetails } from "@/lib/api/orders";
 import { useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
@@ -12,16 +13,25 @@ export default function OrderDetailScreen() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchOrderDetails(id)
-      .then(setOrder)
-      .finally(() => setLoading(false));
+    try {
+      fetchOrderDetails(id)
+        .then(setOrder)
+        .finally(() => setLoading(false));
+    } catch (error) {
+      alert(error);
+    }
   }, [id]);
 
   if (loading) return <Text>Loading order…</Text>;
-  if (!order) return <Text>Order not found</Text>;
+  if (!order)
+    return (
+      <Text style={{ justifyContent: "center", alignContent: "center" }}>
+        Order not found
+      </Text>
+    );
 
   return (
-    <View style={{ padding: 16 }}>
+    <View style={{ padding: 16, backgroundColor: Colors.light.surface, height:'100%' }}>
       <OrderHeader order={order} />
 
       <FlatList

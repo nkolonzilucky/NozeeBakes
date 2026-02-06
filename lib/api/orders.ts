@@ -66,7 +66,7 @@ export async function fetchOrderDetails(orderId: string) {
       `
       id,
       status,
-      total,
+      total_amount,
       created_at,
       order_item (
         id,
@@ -75,7 +75,7 @@ export async function fetchOrderDetails(orderId: string) {
         product:product_id (
           id,
           name,
-          imageURL
+          image_url
         )
       )
     `,

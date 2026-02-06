@@ -22,7 +22,6 @@ export default function CartScreen() {
     } catch (e) {
       if (String(e).includes("No authenticated user")) {
         router.push("/login");
-        alert("Login Successful");
       }
       alert(e);
     } finally {
