@@ -3,8 +3,7 @@ import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import 'react-native-reanimated';
 
-import { useColorScheme } from '@/hooks/use-color-scheme';
-import { View } from "react-native";
+import { useColorScheme } from "@/hooks/use-color-scheme";
 import { CartProvider } from "@/context/CartContext";
 
 export const unstable_settings = {
@@ -19,7 +18,10 @@ export default function RootLayout() {
       <CartProvider>
         <Stack>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="login" options={{ title: "Login" }} />
+          <Stack.Screen
+            name="login"
+            options={{ headerShown: false, title: "Login" }}
+          />
         </Stack>
         <StatusBar style="auto" />
       </CartProvider>

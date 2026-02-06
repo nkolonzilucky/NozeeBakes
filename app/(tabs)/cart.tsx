@@ -16,11 +16,17 @@ export default function CartScreen() {
   async function handleCheckout() {
     try {
       setLoading(true);
-      await checkoutCart();
+      await checkoutCart(items);
       clearCart();
       router.push("/orders" as RelativePathString);
     } catch (e) {
+      if (String(e).includes("No authenticated user")) {
+        router.push("/login");
+        alert("Login Successful");
+      }
       alert(e);
+    } finally {
+      setLoading(false);
     }
   }
 

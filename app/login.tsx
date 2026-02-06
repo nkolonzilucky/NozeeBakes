@@ -2,6 +2,7 @@ import { useState } from "react";
 import { View, TextInput, Button, StyleSheet, ActivityIndicator } from "react-native";
 import { router } from "expo-router";
 import { signIn, signUp } from "@/lib/api/auth";
+import { Colors } from "@/constants/theme";
 
 
 export default function LoginScreen() {
@@ -30,6 +31,7 @@ export default function LoginScreen() {
       />
 
       <Button
+        color={Colors.light.accent}
         title="Sign In"
         onPress={() => {
           try {
@@ -43,6 +45,7 @@ export default function LoginScreen() {
         }}
       />
       <Button
+        color={Colors.light.accent}
         title="Sign Up"
         onPress={() => {
           try {
@@ -70,10 +73,11 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 24,
     justifyContent: "center",
+    backgroundColor: "#9BE7AE",
   },
   input: {
     borderWidth: 1,
-    borderColor: "#ddd",
+    borderColor: "black",
     padding: 12,
     marginBottom: 12,
     borderRadius: 8,

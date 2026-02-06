@@ -1,15 +1,23 @@
+import { Colors } from "@/constants/theme";
 import { fetchOrders } from "@/lib/api/orders";
 import { Order } from "@/types/helper.types";
 import { RelativePathString, router } from "expo-router";
 import { useEffect, useState } from "react";
-import { FlatList, View, Text, Pressable, StyleSheet, ActivityIndicator } from "react-native";
+import {
+  FlatList,
+  View,
+  Text,
+  Pressable,
+  StyleSheet,
+  ActivityIndicator,
+} from "react-native";
 
 export default function OrdersScreen() {
   const [orders, setOrders] = useState<Order[]>([]);
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    setLoading(true)
+    setLoading(true);
     fetchOrders()
       .then(setOrders)
       .catch((error) => {
@@ -21,7 +29,6 @@ export default function OrdersScreen() {
         }
       })
       .finally(() => setLoading(false));
-    
   }, []);
 
   if (loading) return <ActivityIndicator />;
@@ -35,42 +42,45 @@ export default function OrdersScreen() {
   }
 
   return (
-    <FlatList
-      data={orders}
-      keyExtractor={(item) => item.id}
-      renderItem={({ item }) => (
-        <Pressable onPress={() => router.push(`/orders/${item.id}` as RelativePathString)}>
-          <View style={styles.orderCard}>
-            <Text style={styles.orderId}>Order #{item.id.slice(0, 6)}</Text>
+    <View style={styles.container}>
+      <FlatList
+        data={orders}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <Pressable
+            onPress={() =>
+              router.push(`/orders/${item.id}` as RelativePathString)
+            }
+          >
+            <View style={styles.orderCard}>
+              <Text style={styles.orderId}>Order #{item.id.slice(0, 6)}</Text>
 
-            <Text style={styles.status}>Status: {item.status}</Text>
+              <Text style={styles.status}>Status: {item.status}</Text>
 
-            <Text style={styles.total}>Total: R {item.total_amount}</Text>
+              <Text style={styles.total}>Total: R {item.total_amount}</Text>
 
-            <Text style={styles.date}>
-              {new Date(item.created_at).toLocaleDateString()}
-            </Text>
-          </View>
-        </Pressable>
-      )}
-    />
+              <Text style={styles.date}>
+                {new Date(item.created_at).toLocaleDateString()}
+              </Text>
+            </View>
+          </Pressable>
+        )}
+      />
+    </View>
   );
 }
-
-
-
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: Colors.light.surface,
   },
 
   orderCard: {
     padding: 16,
     borderRadius: 12,
-    backgroundColor: "#F9FAFB",
+    backgroundColor: Colors.light.border,
     marginBottom: 12,
     borderWidth: 1,
     borderColor: "#E5E7EB",

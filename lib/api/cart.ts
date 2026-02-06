@@ -1,8 +1,12 @@
 import { supabase } from "@/supabase";
-import { Cart, Cart_Item_With_Product } from "@/types/helper.types";
+import { CartItemWithProduct } from "@/types/cart";
+import { Cart } from "@/types/helper.types";
 
 
-export async function getOrCreateCart(userId: string): Promise<Cart> {
+export async function getOrCreateCart(
+  userId: string,
+  items: CartItemWithProduct[],
+): Promise<Cart> {
   const { data: existingCart } = await supabase
     .from("cart")
     .select("*")
@@ -19,24 +23,29 @@ export async function getOrCreateCart(userId: string): Promise<Cart> {
     .single();
 
   if (error) throw error;
+  items.forEach((item) => {
+    addItemToCart(item.product_id, newCart.id);
+  });
   return newCart;
 }
 
 
-export async function addItemToCart(productId: string): Promise<void> {
+export async function addItemToCart(
+  productId: string,
+  cart_id: string,
+): Promise<void> {
   const {
     data: { user },
   } = await supabase.auth.getUser();
   if (!user) throw new Error("No authenticated user");
-  const cart = await getOrCreateCart(user.id);
-  
+
   const { data: existingItem } = await supabase
     .from("cart_item")
     .select("*")
-    .eq("cart_id", cart.id)
+    .eq("cart_id", cart_id)
     .eq("product_id", productId)
     .single();
-  
+
   if (existingItem) {
     const { error } = await supabase
       .from("cart_item")
@@ -46,39 +55,38 @@ export async function addItemToCart(productId: string): Promise<void> {
     if (error) throw error;
   } else {
     const { error } = await supabase.from("cart_item").insert({
-      cart_id: cart.id,
+      cart_id: cart_id,
       product_id: productId,
       quantity: 1,
     });
 
     if (error) throw error;
   }
-  console.log("addItemToCart: ", `userId ${user.id}, cart is: ${cart.status}`);
 }
 
-export async function fetchCartItems(): Promise<Cart_Item_With_Product[]> {
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  if (!user) throw new Error("No authenticated user");
-  const cart = await getOrCreateCart(user.id);
+// export async function fetchCartItems(): Promise<Cart_Item_With_Product[]> {
+//   const {
+//     data: { user },
+//   } = await supabase.auth.getUser();
+//   if (!user) throw new Error("No authenticated user");
+//   const cart = await getOrCreateCart(user.id, );
 
-  const { data, error } = await supabase
-    .from("cart_item")
-    .select(
-      `
-    *,
-    product (
-      *
-      )
-      `,
-    )
-    .eq("cart_id", cart.id);
+//   const { data, error } = await supabase
+//     .from("cart_item")
+//     .select(
+//       `
+//     *,
+//     product (
+//       *
+//       )
+//       `,
+//     )
+//     .eq("cart_id", cart.id);
 
-  console.log("fetchCartItems: ", `cart ${cart.id}, data: ${data}`);
-  if (error) throw error;
-  return data as unknown as Cart_Item_With_Product[];
-}
+//   console.log("fetchCartItems: ", `cart ${cart.id}, data: ${data}`);
+//   if (error) throw error;
+//   return data as unknown as Cart_Item_With_Product[];
+// }
 
 export async function updateCartItemQuantity(itemId: string, quantity: number) {
   if (quantity <= 0) {

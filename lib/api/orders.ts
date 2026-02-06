@@ -1,31 +1,22 @@
 import { supabase } from "@/supabase";
 import { getOrCreateCart } from "./cart";
 import { Order } from "@/types/helper.types";
+import { useCart } from "@/context/CartContext";
+import { CartItemWithProduct } from "@/types/cart";
 
-export async function checkoutCart() {
-  const { data: { user } } = await supabase.auth.getUser();
-  if(!user) throw new Error('No authenticated user')
-  // 1. get active cart
-  const cart = await getOrCreateCart(user?.id);
+export async function checkoutCart(items: CartItemWithProduct[]) {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) throw new Error("No authenticated user");
 
   // 2. get cart items
-  const { data: items, error } = await supabase
-    .from("cart_item")
-    .select(
-      `
-      quantity,
-      product:product_id (
-        id,
-        price
-      )
-    `,
-    )
-    .eq("cart_id", cart.id);
 
-  if (error) throw error;
   if (!items || items.length === 0) {
     throw new Error("Cart is empty");
   }
+  // 1. get active cart
+  const cart = await getOrCreateCart(user.id, items);
 
   // 3. calculate total
   const total_amount = items.reduce(
@@ -37,11 +28,10 @@ export async function checkoutCart() {
   const { data: order, error: orderError } = await supabase
     .from("order")
     .insert({
-      cart_id
-        : cart.id,
+      cart_id: cart.id,
       total_amount,
       status: "pending",
-      user_id:user.id
+      user_id: user.id,
     })
     .select()
     .single();
