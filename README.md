@@ -1,50 +1,52 @@
-# Welcome to your Expo app 👋
+# Food app - An app for ordering food
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+<!-- markdownlint-disable MD045 -->
+<!-- markdownlint-disable MD033 -->
 
-## Get started
+<p align="center">
+  <img src="assets/screenshots/00-home-screen.png" width="200" style="border-radius: 25px; margin: 6px;"/>
+  <!-- <img src="assets/screenshots/01-default-screen.png" width="200" style="border-radius: 25px; margin: 6px;" /> -->
+  <img src="assets/screenshots/02-cart-screen.png" width="200" style="border-radius: 25px; margin: 6px;"/>
+  <img src="assets/screenshots/01-login-screen.png" width="200"style="border-radius: 25px; margin: 6px;" />
+  <img src="assets/screenshots/03-orders-screen.png" width="200" style="border-radius: 25px; margin: 6px;"/>
+</p>
 
-1. Install dependencies
+<p align="center">
+    Below is a short screen recording demonstrating adding products into the cart and order creation
+</p>
+<p align="center">
+    <img src="assets/demo/nozeebakes-app-demo.gif" width="250" style="margin-horizontal: auto;" />
+</p>
 
-   ```bash
-   npm install
-   ```
+## Overview
 
-2. Start the app
+The food app is a demonstration on building a multi-screen application that are sharing a global state. Using Supabase as the backend and Expo (React Native) as the frontend, this app allows a user to add items into the cart without proving credentials, when the user presses the checkout button, the app promps the user to login before creating/viewing their existing orders.
 
-   ```bash
-   npx expo start
-   ```
+## Project Status
 
-In the output, you'll find options to open the app in a
+This project is intended as a portfolio demonstration of end-to-end mobile app development.
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## Tech Stack
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+- Mobile: Expo (React Native)
+- Language: TypeScript
+- Backend: Supabase (PostgreSQL, Auth)
+- Database: PostgreSQL
+- Security: Row Level Security (RLS), database triggers & functions
+- Tooling: Git, GitHub, VS Code, Bash Terminal
 
-## Get a fresh project
+## Features
 
-When you're ready, run:
+- User authentication and session-based data access for orders
 
-```bash
-npm run reset-project
-```
+### Intentional UX
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+The app focused on ensuring a consisten green theme throughout the application.
 
-## Learn more
+## Running the app locally
 
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- git clone <https://github.com/nkolonzilucky/nozeebakes>
+- cd nozeebakes
+- npm install
+- Ensure to have a .env file, and enter your Supabase metadata
+- npx expo start

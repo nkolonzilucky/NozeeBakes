@@ -1,19 +1,57 @@
+import { Colors } from "@/constants/theme";
 import { Order } from "@/types/helper.types";
-import { View, Text } from "react-native";
+import React from "react";
+import { View, Text, StyleSheet } from "react-native";
 
-export function OrderHeader({ order }:{order:Order}) {
+export function OrderHeader({ order }: { order: Order }) {
   return (
-    <View style={{ marginBottom: 16 }}>
-      <Text style={{ fontSize: 18, fontWeight: "600" }}>
-        Order #{order.id.slice(0, 6)}
-      </Text>
+    <View style={styles.card}>
+      <View style={styles.row}>
+        {/* <Ionicons name="receipt-outline" size={24} color="#111827" /> */}
+        <Text style={styles.title}>Order Confirmed</Text>
+      </View>
 
-      <Text>Status: {order.status}</Text>
-      <Text>Placed on: {new Date(order.created_at).toLocaleDateString()}</Text>
+      <Text style={styles.meta}>Order #{order.id.slice(0, 8)}</Text>
 
-      <Text style={{ marginTop: 8, fontWeight: "600" }}>
-        Total: R {order.total_amount}
+      <Text style={styles.sub}>
+        {new Date(order.created_at).toLocaleString()}
       </Text>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  card: {
+    backgroundColor: Colors.light.surfaceSoft,
+    padding: 16,
+    borderRadius: 16,
+    marginBottom: 16,
+    shadowColor: "#000",
+    shadowOpacity: 0.05,
+    shadowRadius: 8,
+    elevation: 2,
+  },
+
+  row: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+  },
+
+  title: {
+    fontSize: 18,
+    fontWeight: "700",
+    color: "#111827",
+  },
+
+  meta: {
+    marginTop: 8,
+    fontSize: 14,
+    color: "#6B7280",
+  },
+
+  sub: {
+    fontSize: 13,
+    color: "#9CA3AF",
+  },
+});

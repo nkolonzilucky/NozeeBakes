@@ -3,9 +3,9 @@ import { OrderItemRow } from "@/components/OrderItemRow";
 import { Screen } from "@/components/Screen";
 import { Colors } from "@/constants/theme";
 import { fetchOrderDetails } from "@/lib/api/orders";
-import { Stack, useLocalSearchParams } from "expo-router";
+import { router, Stack, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
-import { FlatList, Text, View } from "react-native";
+import { Button, FlatList, Text, View } from "react-native";
 
 
 export default function OrderDetailScreen() {
@@ -44,6 +44,11 @@ export default function OrderDetailScreen() {
       <OrderHeader order={order} />
 
       <FlatList
+        ListFooterComponent={
+          <View style={{ marginTop: 16 }}>
+            <Button title="back" onPress={() => router.back()} />
+          </View>
+        }
         data={order.order_item}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => <OrderItemRow item={item} />}
