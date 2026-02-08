@@ -1,8 +1,9 @@
 import { OrderHeader } from "@/components/OrderHeader";
 import { OrderItemRow } from "@/components/OrderItemRow";
+import { Screen } from "@/components/Screen";
 import { Colors } from "@/constants/theme";
 import { fetchOrderDetails } from "@/lib/api/orders";
-import { useLocalSearchParams } from "expo-router";
+import { Stack, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import { FlatList, Text, View } from "react-native";
 
@@ -31,13 +32,15 @@ export default function OrderDetailScreen() {
     );
 
   return (
-    <View
-      style={{
-        padding: 16,
-        backgroundColor: Colors.light.surface,
-        paddingBottom: 600,
-      }}
-    >
+    // <View
+    //   style={{
+    //     padding: 16,
+    //     backgroundColor: Colors.light.surface,
+    //     paddingBottom: 600,
+    //   }}
+    // >
+    <Screen>
+      <Stack.Screen options={{ headerShown: false }} />
       <OrderHeader order={order} />
 
       <FlatList
@@ -45,6 +48,8 @@ export default function OrderDetailScreen() {
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => <OrderItemRow item={item} />}
       />
-    </View>
+    </Screen>
+
+    // </View>
   );
 }
