@@ -1,4 +1,4 @@
-import { Order_Item, Order_Item_With_Product } from "@/types/helper.types";
+import { Order_Item_With_Product } from "@/types/helper.types";
 import { View, Text, StyleSheet } from "react-native";
 
 export function OrderItemRow({ item }: { item: Order_Item_With_Product }) {

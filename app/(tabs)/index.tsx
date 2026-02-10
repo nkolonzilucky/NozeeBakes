@@ -1,5 +1,6 @@
 import ProductCard from "@/components/ProductCard";
 import PromoHearder from "@/components/PromoHearder";
+import { Colors } from "@/constants/theme";
 import { fetchProducts } from "@/lib/api/product";
 import { Product } from "@/types/helper.types";
 import { useFocusEffect } from "expo-router";
@@ -11,10 +12,12 @@ import {
   Pressable,
   FlatList,
   ActivityIndicator,
+  useColorScheme,
 } from "react-native";
 
 const CATEGORIES = ["All", "Salads & Bowls", "Pasta & Gnocchi"];
 
+const colorScheme = useColorScheme();
 export default function MenuScreen() {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [items, setItems] = useState<Product[]>([]);
@@ -106,7 +109,7 @@ export default function MenuScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#9BE7AE",
+    backgroundColor: Colors[colorScheme ?? "light"].surface,
     padding: 16,
     marginBottom: 66,
   },

@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, Pressable } from "react-native";
-import React, { useState } from "react";
+import React from "react";
 import { Product } from "@/types/helper.types";
 import ProductImage from "./ProductImage";
 import { Colors } from "@/constants/theme";
